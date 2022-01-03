@@ -42,10 +42,10 @@ namespace FileExplorer
         {
             //Thêm vào danh sách icon
             treeNode.ImageList = new ImageList();
-            treeNode.ImageList.Images.Add(new Icon("icons/mycomputer.ico"));
-            treeNode.ImageList.Images.Add(new Icon("icons/drive.ico"));
-            treeNode.ImageList.Images.Add(new Icon("icons/folder_close.ico"));
-            treeNode.ImageList.Images.Add(new Icon("icons/folder_open.ico"));
+            treeNode.ImageList.Images.Add(new Icon("icons/thisPC.ico"));
+            treeNode.ImageList.Images.Add(new Icon("icons/drisk.ico"));
+            treeNode.ImageList.Images.Add(new Icon("icons/folders.ico"));
+            treeNode.ImageList.Images.Add(new Icon("icons/opened-folder.ico"));
             treeNode.ImageList.Images.Add(new Icon("icons/document.ico"));
 
             TreeNode myComputerNode = new TreeNode("This PC");
@@ -113,7 +113,7 @@ namespace FileExplorer
             {
                 ImageList iList = new ImageList();
                 iList.ImageSize = new System.Drawing.Size(64, 64);
-                iList.Images.Add(new Icon("icons/folder_open.ico"));
+                iList.Images.Add(new Icon("icons/folders.ico"));
                 iList.Images.Add(new Icon("icons/document.ico"));
                 iList.Images.Add(new Icon("icons/doc.ico"));//2
                 iList.Images.Add(new Icon("icons/exe.ico"));//3
@@ -122,16 +122,16 @@ namespace FileExplorer
                 iList.Images.Add(new Icon("icons/pptx.ico"));//6
                 iList.Images.Add(new Icon("icons/rar.ico"));//7
                 iList.Images.Add(new Icon("icons/sql.ico"));//8
-                iList.Images.Add(new Icon("icons/xls.ico"));//9
-                iList.Images.Add(new Icon("icons/zip.ico"));//10
+                iList.Images.Add(new Icon("icons/xlxs.ico"));//9
+                iList.Images.Add(new Icon("icons/rar.ico"));//10
                 iList.Images.Add(new Icon("icons/unknown.ico"));//11
-                iList.Images.Add(new Icon("icons/clip.ico"));//12
+                iList.Images.Add(new Icon("icons/video.ico"));//12
                 listDir.LargeImageList = iList;
             }
             else //Small List View
             {
                 ImageList iList = new ImageList();
-                iList.Images.Add(new Icon("icons/folder_open.ico"));
+                iList.Images.Add(new Icon("icons/folders.ico"));
                 iList.Images.Add(new Icon("icons/document.ico"));
                 iList.Images.Add(new Icon("icons/doc.ico"));//2
                 iList.Images.Add(new Icon("icons/exe.ico"));//3
@@ -140,10 +140,10 @@ namespace FileExplorer
                 iList.Images.Add(new Icon("icons/pptx.ico"));//6
                 iList.Images.Add(new Icon("icons/rar.ico"));//7
                 iList.Images.Add(new Icon("icons/sql.ico"));//8
-                iList.Images.Add(new Icon("icons/xls.ico"));//9
-                iList.Images.Add(new Icon("icons/zip.ico"));//10
+                iList.Images.Add(new Icon("icons/xlxs.ico"));//9
+                iList.Images.Add(new Icon("icons/rar.ico"));//10
                 iList.Images.Add(new Icon("icons/unknown.ico"));//11
-                iList.Images.Add(new Icon("icons/clip.ico"));//12
+                iList.Images.Add(new Icon("icons/video.ico"));//12
                 listDir.SmallImageList = iList;
             }
             listDir.Items.Clear();
