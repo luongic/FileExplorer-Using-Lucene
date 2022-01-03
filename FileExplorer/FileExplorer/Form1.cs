@@ -28,6 +28,10 @@ namespace FileExplorer
 
         List<string> list = new List<string>(); //1030
         List<string> FileName = new List<string>(); //1237 1248 1263
+
+        private int fileCount = 0;
+        private int directorieCount = 0;
+
         public Form1()
         {
             InitializeComponent();
@@ -97,6 +101,7 @@ namespace FileExplorer
                     pathDir.Text = curDir.FullName;
                     dsBack.Add(curDir);
                     LoadDirectory(); //567
+                    diskInfo.Text = directorieCount.ToString() + " Folder(s)  " + fileCount.ToString() + " File(s)";
                 }
             }
             catch
@@ -107,6 +112,8 @@ namespace FileExplorer
 
         private void LoadDirectory() //
         {
+            directorieCount = 0;
+            fileCount = 0;
             // them danh icon cho listview
             pathDir.Text = curDir.FullName; //textBox Path
             if (flagLarge == true) //Large Icon View
@@ -164,6 +171,7 @@ namespace FileExplorer
                 lvi.SubItems.Add("");
                 lvi.SubItems.Add("Folder");
                 lvi.SubItems.Add(dir.LastWriteTime.ToString());
+                directorieCount++;
             }
             foreach (FileInfo file in curDir.GetFiles())
             {
@@ -237,6 +245,7 @@ namespace FileExplorer
                 listItem.SubItems.Add(GetSizeStr(file.Length));
                 listItem.SubItems.Add(file.Extension.Substring(1));
                 listItem.SubItems.Add(file.LastWriteTime.ToString());
+                fileCount++;
             }
         }
 
@@ -283,8 +292,8 @@ namespace FileExplorer
 
         private void listDir_ItemActivate(object sender, EventArgs e)
         {
-            try
-            {
+            //try
+            //{
                 if (listDir.SelectedItems[0].Tag.GetType() == typeof(DirectoryInfo))
                 {
                     curDir = (DirectoryInfo)listDir.SelectedItems[0].Tag;
@@ -296,18 +305,151 @@ namespace FileExplorer
                 else
                 {
                     FileInfo file = (FileInfo)listDir.SelectedItems[0].Tag;
-                    Process.Start(file.FullName);
-                }
+                    pathDir.Text = file.FullName;
+                    
+                    new Process { StartInfo = new ProcessStartInfo(file.FullName) { 
+                                        UseShellExecute = true 
+                                    } 
+                    }.Start();
             }
-            catch
-            {
-                return;
-            }
+            //}
+            //catch
+            //{
+            //    return;
+            //}
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void left_Click(object sender, EventArgs e)
+        {
+            if (dsBack.Count > 1)
+            {
+                curDir = dsBack[dsBack.Count - 2];
+                dsNext.Add(dsBack[dsBack.Count - 1]);
+                dsBack.Remove(dsBack[dsBack.Count - 1]);
+                LoadDirectory();
+            }
+        }
+
+        private void toolStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
+        private void refresh_Click(object sender, EventArgs e)
+        {
+            reFresh();
+        }
+        private void reFresh()
+        {
+            LoadDirectory();
+            UpdateTreeView();
+        }
+        private void UpdateTreeView()
+        {
+            try
+            {
+                curNode.Nodes.Clear();
+                DirectoryInfo directoryInfo = curDir;
+                foreach (DirectoryInfo dir in directoryInfo.GetDirectories())
+                {
+                    if (((dir.Attributes & FileAttributes.Hidden) == FileAttributes.Hidden) & true == flag1)
+                    {
+                        continue;
+                    }
+                    if ((dir.Attributes & FileAttributes.System) == FileAttributes.System)
+                    {
+                        continue;
+                    }
+                    TreeNode dirNode = new TreeNode(dir.Name);
+                    dirNode.Tag = dir;
+                    dirNode.ImageIndex = 2;
+                    dirNode.SelectedImageIndex = 3;
+                    curNode.Nodes.Add(dirNode);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Console.WriteLine(ex.StackTrace);
+            }
+        }
+
+        private void right_Click(object sender, EventArgs e)
+        {
+            if (dsNext.Count > 0)
+            {
+                curDir = dsNext[dsNext.Count - 1];
+                dsBack.Add(dsNext[dsNext.Count - 1]);
+                dsNext.Remove(dsNext[dsNext.Count - 1]);
+                LoadDirectory();
+            }
+        }
+
+        private void up_Click(object sender, EventArgs e)
+        {
+            if (curDir.Parent != null)
+            {
+                curDir = curDir.Parent;
+                curNode = curNode.Parent;
+                reFresh();
+            }
+            else
+            {
+                return;
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void searchTypeBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            listDir.View = System.Windows.Forms.View.List;
+            reFresh();
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            listDir.View = System.Windows.Forms.View.Details;
+            reFresh();
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            listDir.View = System.Windows.Forms.View.Tile;
+            flagLarge = true;
+            reFresh();
+        }
+
+        private void button13_Click(object sender, EventArgs e)
+        {
+            listDir.View = System.Windows.Forms.View.LargeIcon;
+            flagLarge = true;
+            reFresh();
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            //foreach (ListViewItem item in listDir.Items)
+            //{
+               
+            //}
+            for (int i = 0; i < listDir.Items.Count; i++)
+            {
+                listDir.Items[i]. = true;
+            }
         }
     }
 }
