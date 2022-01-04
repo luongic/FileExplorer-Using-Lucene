@@ -51,8 +51,9 @@ namespace FileExplorer
             this.button10 = new System.Windows.Forms.Button();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.splitter1 = new System.Windows.Forms.Splitter();
-            this.label1 = new System.Windows.Forms.Label();
+            this.btnSearch = new System.Windows.Forms.Button();
             this.searchTypeBox = new System.Windows.Forms.ComboBox();
+            this.searchContentBox = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.pathDir = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -62,6 +63,7 @@ namespace FileExplorer
             this.up = new System.Windows.Forms.ToolStripButton();
             this.refresh = new System.Windows.Forms.ToolStripButton();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.button1 = new System.Windows.Forms.Button();
             this.diskInfoPanel = new System.Windows.Forms.Panel();
             this.diskInfo = new System.Windows.Forms.Label();
@@ -93,6 +95,7 @@ namespace FileExplorer
             this.panel2.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.diskInfoPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -109,31 +112,38 @@ namespace FileExplorer
             this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Top;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
+            this.tabControl1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(937, 88);
+            this.tabControl1.Size = new System.Drawing.Size(850, 88);
             this.tabControl1.TabIndex = 1;
             // 
             // tabPage1
             // 
+            this.tabPage1.BackColor = System.Drawing.Color.Transparent;
             this.tabPage1.Controls.Add(this.button3);
             this.tabPage1.Controls.Add(this.button5);
-            this.tabPage1.Location = new System.Drawing.Point(4, 29);
+            this.tabPage1.Location = new System.Drawing.Point(4, 24);
+            this.tabPage1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(929, 55);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabPage1.Size = new System.Drawing.Size(842, 60);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "File";
-            this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // button3
             // 
+            this.button3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.button3.Dock = System.Windows.Forms.DockStyle.Left;
-            this.button3.Location = new System.Drawing.Point(3, 3);
+            this.button3.Image = global::FileExplorer.Properties.Resources.add;
+            this.button3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button3.Location = new System.Drawing.Point(3, 2);
+            this.button3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(94, 49);
+            this.button3.Size = new System.Drawing.Size(122, 56);
             this.button3.TabIndex = 1;
             this.button3.Text = "New Folder";
+            this.button3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
@@ -143,9 +153,10 @@ namespace FileExplorer
             this.button5.Dock = System.Windows.Forms.DockStyle.Right;
             this.button5.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.button5.ForeColor = System.Drawing.Color.White;
-            this.button5.Location = new System.Drawing.Point(866, 3);
+            this.button5.Location = new System.Drawing.Point(787, 2);
+            this.button5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(60, 49);
+            this.button5.Size = new System.Drawing.Size(52, 56);
             this.button5.TabIndex = 0;
             this.button5.Text = "X";
             this.button5.UseVisualStyleBackColor = false;
@@ -161,10 +172,11 @@ namespace FileExplorer
             this.Computer.Controls.Add(this.button6);
             this.Computer.Controls.Add(this.button4);
             this.Computer.Controls.Add(this.button2);
-            this.Computer.Location = new System.Drawing.Point(4, 29);
+            this.Computer.Location = new System.Drawing.Point(4, 24);
+            this.Computer.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Computer.Name = "Computer";
-            this.Computer.Padding = new System.Windows.Forms.Padding(3);
-            this.Computer.Size = new System.Drawing.Size(929, 55);
+            this.Computer.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Computer.Size = new System.Drawing.Size(842, 60);
             this.Computer.TabIndex = 1;
             this.Computer.Text = "Computer";
             this.Computer.UseVisualStyleBackColor = true;
@@ -172,9 +184,10 @@ namespace FileExplorer
             // button15
             // 
             this.button15.Dock = System.Windows.Forms.DockStyle.Left;
-            this.button15.Location = new System.Drawing.Point(473, 3);
+            this.button15.Location = new System.Drawing.Point(413, 2);
+            this.button15.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button15.Name = "button15";
-            this.button15.Size = new System.Drawing.Size(94, 49);
+            this.button15.Size = new System.Drawing.Size(82, 56);
             this.button15.TabIndex = 7;
             this.button15.Text = "Properties";
             this.button15.UseVisualStyleBackColor = true;
@@ -182,9 +195,10 @@ namespace FileExplorer
             // button14
             // 
             this.button14.Dock = System.Windows.Forms.DockStyle.Left;
-            this.button14.Location = new System.Drawing.Point(379, 3);
+            this.button14.Location = new System.Drawing.Point(331, 2);
+            this.button14.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button14.Name = "button14";
-            this.button14.Size = new System.Drawing.Size(94, 49);
+            this.button14.Size = new System.Drawing.Size(82, 56);
             this.button14.TabIndex = 6;
             this.button14.Text = "Rename";
             this.button14.UseVisualStyleBackColor = true;
@@ -193,9 +207,10 @@ namespace FileExplorer
             // button9
             // 
             this.button9.Dock = System.Windows.Forms.DockStyle.Right;
-            this.button9.Location = new System.Drawing.Point(726, 3);
+            this.button9.Location = new System.Drawing.Point(664, 2);
+            this.button9.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(106, 49);
+            this.button9.Size = new System.Drawing.Size(93, 56);
             this.button9.TabIndex = 5;
             this.button9.Text = "Select None";
             this.button9.UseVisualStyleBackColor = true;
@@ -203,9 +218,10 @@ namespace FileExplorer
             // button8
             // 
             this.button8.Dock = System.Windows.Forms.DockStyle.Right;
-            this.button8.Location = new System.Drawing.Point(832, 3);
+            this.button8.Location = new System.Drawing.Point(757, 2);
+            this.button8.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(94, 49);
+            this.button8.Size = new System.Drawing.Size(82, 56);
             this.button8.TabIndex = 4;
             this.button8.Text = "Select All";
             this.button8.UseVisualStyleBackColor = true;
@@ -214,9 +230,10 @@ namespace FileExplorer
             // button7
             // 
             this.button7.Dock = System.Windows.Forms.DockStyle.Left;
-            this.button7.Location = new System.Drawing.Point(285, 3);
+            this.button7.Location = new System.Drawing.Point(249, 2);
+            this.button7.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(94, 49);
+            this.button7.Size = new System.Drawing.Size(82, 56);
             this.button7.TabIndex = 3;
             this.button7.Text = "Delete";
             this.button7.UseVisualStyleBackColor = true;
@@ -225,9 +242,10 @@ namespace FileExplorer
             // button6
             // 
             this.button6.Dock = System.Windows.Forms.DockStyle.Left;
-            this.button6.Location = new System.Drawing.Point(191, 3);
+            this.button6.Location = new System.Drawing.Point(167, 2);
+            this.button6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(94, 49);
+            this.button6.Size = new System.Drawing.Size(82, 56);
             this.button6.TabIndex = 2;
             this.button6.Text = "Paste";
             this.button6.UseVisualStyleBackColor = true;
@@ -236,9 +254,10 @@ namespace FileExplorer
             // button4
             // 
             this.button4.Dock = System.Windows.Forms.DockStyle.Left;
-            this.button4.Location = new System.Drawing.Point(97, 3);
+            this.button4.Location = new System.Drawing.Point(85, 2);
+            this.button4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(94, 49);
+            this.button4.Size = new System.Drawing.Size(82, 56);
             this.button4.TabIndex = 1;
             this.button4.Text = "Copy";
             this.button4.UseVisualStyleBackColor = true;
@@ -247,9 +266,10 @@ namespace FileExplorer
             // button2
             // 
             this.button2.Dock = System.Windows.Forms.DockStyle.Left;
-            this.button2.Location = new System.Drawing.Point(3, 3);
+            this.button2.Location = new System.Drawing.Point(3, 2);
+            this.button2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(94, 49);
+            this.button2.Size = new System.Drawing.Size(82, 56);
             this.button2.TabIndex = 0;
             this.button2.Text = "Cut";
             this.button2.UseVisualStyleBackColor = true;
@@ -261,10 +281,11 @@ namespace FileExplorer
             this.tabPage3.Controls.Add(this.button12);
             this.tabPage3.Controls.Add(this.button11);
             this.tabPage3.Controls.Add(this.button10);
-            this.tabPage3.Location = new System.Drawing.Point(4, 29);
+            this.tabPage3.Location = new System.Drawing.Point(4, 24);
+            this.tabPage3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(929, 55);
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabPage3.Size = new System.Drawing.Size(842, 60);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "View";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -272,9 +293,10 @@ namespace FileExplorer
             // button13
             // 
             this.button13.Dock = System.Windows.Forms.DockStyle.Left;
-            this.button13.Location = new System.Drawing.Point(285, 3);
+            this.button13.Location = new System.Drawing.Point(249, 2);
+            this.button13.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button13.Name = "button13";
-            this.button13.Size = new System.Drawing.Size(94, 49);
+            this.button13.Size = new System.Drawing.Size(82, 56);
             this.button13.TabIndex = 3;
             this.button13.Text = "Large Icon";
             this.button13.UseVisualStyleBackColor = true;
@@ -283,9 +305,10 @@ namespace FileExplorer
             // button12
             // 
             this.button12.Dock = System.Windows.Forms.DockStyle.Left;
-            this.button12.Location = new System.Drawing.Point(191, 3);
+            this.button12.Location = new System.Drawing.Point(167, 2);
+            this.button12.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(94, 49);
+            this.button12.Size = new System.Drawing.Size(82, 56);
             this.button12.TabIndex = 2;
             this.button12.Text = "Title";
             this.button12.UseVisualStyleBackColor = true;
@@ -294,9 +317,10 @@ namespace FileExplorer
             // button11
             // 
             this.button11.Dock = System.Windows.Forms.DockStyle.Left;
-            this.button11.Location = new System.Drawing.Point(97, 3);
+            this.button11.Location = new System.Drawing.Point(85, 2);
+            this.button11.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button11.Name = "button11";
-            this.button11.Size = new System.Drawing.Size(94, 49);
+            this.button11.Size = new System.Drawing.Size(82, 56);
             this.button11.TabIndex = 1;
             this.button11.Text = "Detail";
             this.button11.UseVisualStyleBackColor = true;
@@ -305,9 +329,10 @@ namespace FileExplorer
             // button10
             // 
             this.button10.Dock = System.Windows.Forms.DockStyle.Left;
-            this.button10.Location = new System.Drawing.Point(3, 3);
+            this.button10.Location = new System.Drawing.Point(3, 2);
+            this.button10.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(94, 49);
+            this.button10.Size = new System.Drawing.Size(82, 56);
             this.button10.TabIndex = 0;
             this.button10.Text = "List";
             this.button10.UseVisualStyleBackColor = true;
@@ -315,48 +340,67 @@ namespace FileExplorer
             // 
             // tabPage4
             // 
+            this.tabPage4.BackColor = System.Drawing.Color.PowderBlue;
             this.tabPage4.Controls.Add(this.splitter1);
-            this.tabPage4.Controls.Add(this.label1);
+            this.tabPage4.Controls.Add(this.btnSearch);
             this.tabPage4.Controls.Add(this.searchTypeBox);
-            this.tabPage4.Location = new System.Drawing.Point(4, 29);
+            this.tabPage4.Controls.Add(this.searchContentBox);
+            this.tabPage4.Location = new System.Drawing.Point(4, 24);
+            this.tabPage4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(929, 55);
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabPage4.Size = new System.Drawing.Size(842, 60);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Search";
-            this.tabPage4.UseVisualStyleBackColor = true;
             // 
             // splitter1
             // 
-            this.splitter1.Location = new System.Drawing.Point(306, 3);
+            this.splitter1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.splitter1.Location = new System.Drawing.Point(229, 2);
             this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(10, 49);
-            this.splitter1.TabIndex = 2;
+            this.splitter1.Size = new System.Drawing.Size(42, 56);
+            this.splitter1.TabIndex = 5;
             this.splitter1.TabStop = false;
             // 
-            // label1
+            // btnSearch
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 34);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(107, 20);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Searching type";
+            this.btnSearch.Location = new System.Drawing.Point(764, 31);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(75, 23);
+            this.btnSearch.TabIndex = 4;
+            this.btnSearch.Text = "Search";
+            this.btnSearch.UseVisualStyleBackColor = true;
             // 
             // searchTypeBox
             // 
             this.searchTypeBox.Dock = System.Windows.Forms.DockStyle.Left;
+            this.searchTypeBox.ForeColor = System.Drawing.SystemColors.WindowText;
             this.searchTypeBox.FormattingEnabled = true;
             this.searchTypeBox.Items.AddRange(new object[] {
             "Date",
             "Name",
             "Content",
             "Type"});
-            this.searchTypeBox.Location = new System.Drawing.Point(3, 3);
+            this.searchTypeBox.Location = new System.Drawing.Point(3, 2);
+            this.searchTypeBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.searchTypeBox.Name = "searchTypeBox";
-            this.searchTypeBox.Size = new System.Drawing.Size(303, 28);
+            this.searchTypeBox.Size = new System.Drawing.Size(220, 23);
             this.searchTypeBox.TabIndex = 0;
+            this.searchTypeBox.Text = "Choose type";
             this.searchTypeBox.SelectedIndexChanged += new System.EventHandler(this.searchTypeBox_SelectedIndexChanged);
+            // 
+            // searchContentBox
+            // 
+            this.searchContentBox.Dock = System.Windows.Forms.DockStyle.Right;
+            this.searchContentBox.ForeColor = System.Drawing.SystemColors.InactiveCaption;
+            this.searchContentBox.Location = new System.Drawing.Point(271, 2);
+            this.searchContentBox.Name = "searchContentBox";
+            this.searchContentBox.Size = new System.Drawing.Size(568, 23);
+            this.searchContentBox.TabIndex = 3;
+            this.searchContentBox.Text = " Search content...";
+            this.searchContentBox.TextChanged += new System.EventHandler(this.searchContentBox_TextChanged);
+            this.searchContentBox.Enter += new System.EventHandler(this.searchContentBox_Enter);
+            this.searchContentBox.Leave += new System.EventHandler(this.searchContentBox_Leave);
             // 
             // panel1
             // 
@@ -366,15 +410,16 @@ namespace FileExplorer
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 88);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(937, 26);
+            this.panel1.Size = new System.Drawing.Size(850, 29);
             this.panel1.TabIndex = 1;
             // 
             // pathDir
             // 
             this.pathDir.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pathDir.Location = new System.Drawing.Point(174, 0);
+            this.pathDir.Location = new System.Drawing.Point(152, 0);
+            this.pathDir.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pathDir.Name = "pathDir";
-            this.pathDir.Size = new System.Drawing.Size(666, 27);
+            this.pathDir.Size = new System.Drawing.Size(593, 23);
             this.pathDir.TabIndex = 2;
             // 
             // panel2
@@ -383,7 +428,7 @@ namespace FileExplorer
             this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(174, 26);
+            this.panel2.Size = new System.Drawing.Size(152, 29);
             this.panel2.TabIndex = 0;
             // 
             // toolStrip1
@@ -397,7 +442,7 @@ namespace FileExplorer
             this.refresh});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(174, 26);
+            this.toolStrip1.Size = new System.Drawing.Size(152, 29);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             this.toolStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStrip1_ItemClicked);
@@ -409,8 +454,8 @@ namespace FileExplorer
             this.left.Image = ((System.Drawing.Image)(resources.GetObject("left.Image")));
             this.left.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.left.Name = "left";
-            this.left.Size = new System.Drawing.Size(29, 23);
-            this.left.Text = "toolStripButton1";
+            this.left.Size = new System.Drawing.Size(24, 26);
+            this.left.Text = "Back";
             this.left.Click += new System.EventHandler(this.left_Click);
             // 
             // right
@@ -419,8 +464,8 @@ namespace FileExplorer
             this.right.Image = ((System.Drawing.Image)(resources.GetObject("right.Image")));
             this.right.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.right.Name = "right";
-            this.right.Size = new System.Drawing.Size(29, 23);
-            this.right.Text = "toolStripButton2";
+            this.right.Size = new System.Drawing.Size(24, 26);
+            this.right.Text = "Forward";
             this.right.Click += new System.EventHandler(this.right_Click);
             // 
             // up
@@ -429,8 +474,8 @@ namespace FileExplorer
             this.up.Image = ((System.Drawing.Image)(resources.GetObject("up.Image")));
             this.up.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.up.Name = "up";
-            this.up.Size = new System.Drawing.Size(29, 23);
-            this.up.Text = "toolStripButton3";
+            this.up.Size = new System.Drawing.Size(24, 26);
+            this.up.Text = "Up";
             this.up.Click += new System.EventHandler(this.up_Click);
             // 
             // refresh
@@ -439,25 +484,40 @@ namespace FileExplorer
             this.refresh.Image = ((System.Drawing.Image)(resources.GetObject("refresh.Image")));
             this.refresh.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.refresh.Name = "refresh";
-            this.refresh.Size = new System.Drawing.Size(29, 23);
-            this.refresh.Text = "toolStripButton4";
+            this.refresh.Size = new System.Drawing.Size(24, 26);
+            this.refresh.Text = "Refresh";
             this.refresh.Click += new System.EventHandler(this.refresh_Click);
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.pictureBox1);
             this.panel3.Controls.Add(this.button1);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel3.Location = new System.Drawing.Point(840, 0);
+            this.panel3.Location = new System.Drawing.Point(745, 0);
+            this.panel3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(97, 26);
+            this.panel3.Size = new System.Drawing.Size(105, 29);
             this.panel3.TabIndex = 1;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox1.Image = global::FileExplorer.Properties.Resources.copy;
+            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(35, 29);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 3;
+            this.pictureBox1.TabStop = false;
             // 
             // button1
             // 
-            this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button1.Location = new System.Drawing.Point(0, 0);
+            this.button1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.button1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.button1.Location = new System.Drawing.Point(35, 0);
+            this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(97, 26);
+            this.button1.Size = new System.Drawing.Size(70, 29);
             this.button1.TabIndex = 0;
             this.button1.Text = "Copy Path";
             this.button1.UseVisualStyleBackColor = true;
@@ -467,18 +527,19 @@ namespace FileExplorer
             // 
             this.diskInfoPanel.Controls.Add(this.diskInfo);
             this.diskInfoPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.diskInfoPanel.Location = new System.Drawing.Point(0, 508);
+            this.diskInfoPanel.Location = new System.Drawing.Point(0, 432);
+            this.diskInfoPanel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.diskInfoPanel.Name = "diskInfoPanel";
-            this.diskInfoPanel.Size = new System.Drawing.Size(937, 24);
+            this.diskInfoPanel.Size = new System.Drawing.Size(850, 18);
             this.diskInfoPanel.TabIndex = 2;
             // 
             // diskInfo
             // 
             this.diskInfo.AutoSize = true;
-            this.diskInfo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.diskInfo.Dock = System.Windows.Forms.DockStyle.Left;
             this.diskInfo.Location = new System.Drawing.Point(0, 0);
             this.diskInfo.Name = "diskInfo";
-            this.diskInfo.Size = new System.Drawing.Size(110, 20);
+            this.diskInfo.Size = new System.Drawing.Size(87, 15);
             this.diskInfo.TabIndex = 0;
             this.diskInfo.Text = "Folder(s) File(s)";
             // 
@@ -486,7 +547,8 @@ namespace FileExplorer
             // 
             this.splitContainer1.Cursor = System.Windows.Forms.Cursors.VSplit;
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 114);
+            this.splitContainer1.Location = new System.Drawing.Point(0, 117);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -496,9 +558,8 @@ namespace FileExplorer
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.listDir);
-            this.splitContainer1.Size = new System.Drawing.Size(937, 394);
-            this.splitContainer1.SplitterDistance = 258;
-            this.splitContainer1.SplitterWidth = 5;
+            this.splitContainer1.Size = new System.Drawing.Size(850, 315);
+            this.splitContainer1.SplitterDistance = 193;
             this.splitContainer1.TabIndex = 3;
             // 
             // treeNode
@@ -506,8 +567,9 @@ namespace FileExplorer
             this.treeNode.Cursor = System.Windows.Forms.Cursors.Default;
             this.treeNode.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeNode.Location = new System.Drawing.Point(0, 0);
+            this.treeNode.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.treeNode.Name = "treeNode";
-            this.treeNode.Size = new System.Drawing.Size(258, 394);
+            this.treeNode.Size = new System.Drawing.Size(193, 315);
             this.treeNode.TabIndex = 0;
             this.treeNode.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeNode_AfterSelect);
             // 
@@ -523,8 +585,9 @@ namespace FileExplorer
             this.listDir.HideSelection = false;
             this.listDir.LabelEdit = true;
             this.listDir.Location = new System.Drawing.Point(0, 0);
+            this.listDir.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.listDir.Name = "listDir";
-            this.listDir.Size = new System.Drawing.Size(674, 394);
+            this.listDir.Size = new System.Drawing.Size(653, 315);
             this.listDir.TabIndex = 3;
             this.listDir.UseCompatibleStateImageBehavior = false;
             this.listDir.View = System.Windows.Forms.View.Details;
@@ -566,55 +629,55 @@ namespace FileExplorer
             this.propertiesToolStripMenuItem,
             this.propertiesTS});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(146, 220);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(128, 202);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // openTS
             // 
             this.openTS.Name = "openTS";
-            this.openTS.Size = new System.Drawing.Size(145, 24);
+            this.openTS.Size = new System.Drawing.Size(127, 22);
             this.openTS.Text = "Open";
             this.openTS.Click += new System.EventHandler(this.openTS_Click);
             // 
             // refreshTS
             // 
             this.refreshTS.Name = "refreshTS";
-            this.refreshTS.Size = new System.Drawing.Size(145, 24);
+            this.refreshTS.Size = new System.Drawing.Size(127, 22);
             this.refreshTS.Text = "Refresh";
             this.refreshTS.Click += new System.EventHandler(this.refreshTS_Click);
             // 
             // cutTS
             // 
             this.cutTS.Name = "cutTS";
-            this.cutTS.Size = new System.Drawing.Size(145, 24);
+            this.cutTS.Size = new System.Drawing.Size(127, 22);
             this.cutTS.Text = "Cut";
             this.cutTS.Click += new System.EventHandler(this.cutTS_Click);
             // 
             // copyTS
             // 
             this.copyTS.Name = "copyTS";
-            this.copyTS.Size = new System.Drawing.Size(145, 24);
+            this.copyTS.Size = new System.Drawing.Size(127, 22);
             this.copyTS.Text = "Copy";
             this.copyTS.Click += new System.EventHandler(this.copyTS_Click);
             // 
             // pasteTS
             // 
             this.pasteTS.Name = "pasteTS";
-            this.pasteTS.Size = new System.Drawing.Size(145, 24);
+            this.pasteTS.Size = new System.Drawing.Size(127, 22);
             this.pasteTS.Text = "Paste";
             this.pasteTS.Click += new System.EventHandler(this.pasteTS_Click);
             // 
             // renameTS
             // 
             this.renameTS.Name = "renameTS";
-            this.renameTS.Size = new System.Drawing.Size(145, 24);
+            this.renameTS.Size = new System.Drawing.Size(127, 22);
             this.renameTS.Text = "Rename";
             this.renameTS.Click += new System.EventHandler(this.renameTS_Click);
             // 
             // deleteTS
             // 
             this.deleteTS.Name = "deleteTS";
-            this.deleteTS.Size = new System.Drawing.Size(145, 24);
+            this.deleteTS.Size = new System.Drawing.Size(127, 22);
             this.deleteTS.Text = "Delete";
             this.deleteTS.Click += new System.EventHandler(this.deleteTS_Click);
             // 
@@ -624,39 +687,41 @@ namespace FileExplorer
             this.folderTS,
             this.textFileTS});
             this.propertiesToolStripMenuItem.Name = "propertiesToolStripMenuItem";
-            this.propertiesToolStripMenuItem.Size = new System.Drawing.Size(145, 24);
+            this.propertiesToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
             this.propertiesToolStripMenuItem.Text = "New";
             this.propertiesToolStripMenuItem.Click += new System.EventHandler(this.propertiesToolStripMenuItem_Click);
             // 
             // folderTS
             // 
             this.folderTS.Name = "folderTS";
-            this.folderTS.Size = new System.Drawing.Size(146, 26);
+            this.folderTS.Size = new System.Drawing.Size(116, 22);
             this.folderTS.Text = "Folder";
             this.folderTS.Click += new System.EventHandler(this.folderTS_Click);
             // 
             // textFileTS
             // 
             this.textFileTS.Name = "textFileTS";
-            this.textFileTS.Size = new System.Drawing.Size(146, 26);
+            this.textFileTS.Size = new System.Drawing.Size(116, 22);
             this.textFileTS.Text = "Text File";
             // 
             // propertiesTS
             // 
             this.propertiesTS.Name = "propertiesTS";
-            this.propertiesTS.Size = new System.Drawing.Size(145, 24);
+            this.propertiesTS.Size = new System.Drawing.Size(127, 22);
             this.propertiesTS.Text = "Properties";
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(937, 532);
+            this.ClientSize = new System.Drawing.Size(850, 450);
             this.ContextMenuStrip = this.contextMenuStrip1;
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.diskInfoPanel);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.tabControl1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Form1";
             this.Text = "File Explorer";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -673,6 +738,7 @@ namespace FileExplorer
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.panel3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.diskInfoPanel.ResumeLayout(false);
             this.diskInfoPanel.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
@@ -722,9 +788,6 @@ namespace FileExplorer
         private System.Windows.Forms.Button button12;
         private System.Windows.Forms.Button button11;
         private System.Windows.Forms.Button button10;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox searchTypeBox;
-        private System.Windows.Forms.Splitter splitter1;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem openTS;
         private System.Windows.Forms.ToolStripMenuItem refreshTS;
@@ -739,6 +802,11 @@ namespace FileExplorer
         private System.Windows.Forms.ToolStripMenuItem textFileTS;
         private System.Windows.Forms.Button button14;
         private System.Windows.Forms.Button button15;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.TextBox searchContentBox;
+        private System.Windows.Forms.Button btnSearch;
+        private System.Windows.Forms.ComboBox searchTypeBox;
+        private System.Windows.Forms.Splitter splitter1;
     }
 }
 

@@ -240,6 +240,9 @@ namespace FileExplorer
                     case ".JPG":
                         typeFile = 4;
                         break;
+                    case ".TXT":
+                        typeFile = 1;
+                        break;
                     default:
                         typeFile = 11;
                         break;
@@ -323,11 +326,6 @@ namespace FileExplorer
             //{
             //    return;
             //}
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void left_Click(object sender, EventArgs e)
@@ -435,6 +433,7 @@ namespace FileExplorer
         private void button12_Click(object sender, EventArgs e)
         {
             listDir.View = System.Windows.Forms.View.Tile;
+
             flagLarge = true;
             reFresh();
         }
@@ -899,6 +898,35 @@ namespace FileExplorer
                     }
                 }.Start();
             }
+        }
+
+        //PlaceHoder for searchContentBox-------------------------------
+        private void searchContentBox_Enter(object sender, EventArgs e)
+        {
+            if(searchContentBox.Text == " Search content...")
+            {
+                searchContentBox.Text = "";
+                searchContentBox.ForeColor = Color.Black;
+            }
+        }
+
+        private void searchContentBox_Leave(object sender, EventArgs e)
+        {
+            if (searchContentBox.Text == "")
+            {
+                searchContentBox.Text = " Search content...";
+                searchContentBox.ForeColor = Color.Silver;
+            }
+        }
+        //------------------------------------------------------------
+        private void splitter1_SplitterMoved(object sender, SplitterEventArgs e)
+        {
+
+        }
+
+        private void searchContentBox_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

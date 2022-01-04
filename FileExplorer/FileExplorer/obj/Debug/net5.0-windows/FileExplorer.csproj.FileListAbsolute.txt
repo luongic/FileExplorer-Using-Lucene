@@ -56,3 +56,4 @@ D:\cnpm_cuoiki\FileExplorer\FileExplorer\obj\Debug\net5.0-windows\ref\FileExplor
 D:\cnpm_cuoiki\FileExplorer\FileExplorer\obj\Debug\net5.0-windows\FileExplorer.pdb
 D:\cnpm_cuoiki\FileExplorer\FileExplorer\obj\Debug\net5.0-windows\FileExplorer.genruntimeconfig.cache
 D:\cnpm_cuoiki\FileExplorer\FileExplorer\obj\Debug\net5.0-windows\FileExplorer.PropertiesForm.resources
+D:\Final_Project\cnpm_cuoiki\FileExplorer\FileExplorer\obj\Debug\net5.0-windows\FileExplorer.PropertiesForm.resources
