@@ -36,6 +36,7 @@ namespace FileExplorer
             this.button3 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.Computer = new System.Windows.Forms.TabPage();
+            this.button15 = new System.Windows.Forms.Button();
             this.button14 = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
@@ -83,7 +84,6 @@ namespace FileExplorer
             this.folderTS = new System.Windows.Forms.ToolStripMenuItem();
             this.textFileTS = new System.Windows.Forms.ToolStripMenuItem();
             this.propertiesTS = new System.Windows.Forms.ToolStripMenuItem();
-            this.button15 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.Computer.SuspendLayout();
@@ -168,6 +168,16 @@ namespace FileExplorer
             this.Computer.TabIndex = 1;
             this.Computer.Text = "Computer";
             this.Computer.UseVisualStyleBackColor = true;
+            // 
+            // button15
+            // 
+            this.button15.Dock = System.Windows.Forms.DockStyle.Left;
+            this.button15.Location = new System.Drawing.Point(473, 3);
+            this.button15.Name = "button15";
+            this.button15.Size = new System.Drawing.Size(94, 49);
+            this.button15.TabIndex = 7;
+            this.button15.Text = "Properties";
+            this.button15.UseVisualStyleBackColor = true;
             // 
             // button14
             // 
@@ -556,55 +566,55 @@ namespace FileExplorer
             this.propertiesToolStripMenuItem,
             this.propertiesTS});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(211, 248);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(146, 220);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // openTS
             // 
             this.openTS.Name = "openTS";
-            this.openTS.Size = new System.Drawing.Size(210, 24);
+            this.openTS.Size = new System.Drawing.Size(145, 24);
             this.openTS.Text = "Open";
             this.openTS.Click += new System.EventHandler(this.openTS_Click);
             // 
             // refreshTS
             // 
             this.refreshTS.Name = "refreshTS";
-            this.refreshTS.Size = new System.Drawing.Size(210, 24);
+            this.refreshTS.Size = new System.Drawing.Size(145, 24);
             this.refreshTS.Text = "Refresh";
             this.refreshTS.Click += new System.EventHandler(this.refreshTS_Click);
             // 
             // cutTS
             // 
             this.cutTS.Name = "cutTS";
-            this.cutTS.Size = new System.Drawing.Size(210, 24);
+            this.cutTS.Size = new System.Drawing.Size(145, 24);
             this.cutTS.Text = "Cut";
             this.cutTS.Click += new System.EventHandler(this.cutTS_Click);
             // 
             // copyTS
             // 
             this.copyTS.Name = "copyTS";
-            this.copyTS.Size = new System.Drawing.Size(210, 24);
+            this.copyTS.Size = new System.Drawing.Size(145, 24);
             this.copyTS.Text = "Copy";
             this.copyTS.Click += new System.EventHandler(this.copyTS_Click);
             // 
             // pasteTS
             // 
             this.pasteTS.Name = "pasteTS";
-            this.pasteTS.Size = new System.Drawing.Size(210, 24);
+            this.pasteTS.Size = new System.Drawing.Size(145, 24);
             this.pasteTS.Text = "Paste";
             this.pasteTS.Click += new System.EventHandler(this.pasteTS_Click);
             // 
             // renameTS
             // 
             this.renameTS.Name = "renameTS";
-            this.renameTS.Size = new System.Drawing.Size(210, 24);
+            this.renameTS.Size = new System.Drawing.Size(145, 24);
             this.renameTS.Text = "Rename";
             this.renameTS.Click += new System.EventHandler(this.renameTS_Click);
             // 
             // deleteTS
             // 
             this.deleteTS.Name = "deleteTS";
-            this.deleteTS.Size = new System.Drawing.Size(210, 24);
+            this.deleteTS.Size = new System.Drawing.Size(145, 24);
             this.deleteTS.Text = "Delete";
             this.deleteTS.Click += new System.EventHandler(this.deleteTS_Click);
             // 
@@ -621,14 +631,14 @@ namespace FileExplorer
             // folderTS
             // 
             this.folderTS.Name = "folderTS";
-            this.folderTS.Size = new System.Drawing.Size(224, 26);
+            this.folderTS.Size = new System.Drawing.Size(146, 26);
             this.folderTS.Text = "Folder";
             this.folderTS.Click += new System.EventHandler(this.folderTS_Click);
             // 
             // textFileTS
             // 
             this.textFileTS.Name = "textFileTS";
-            this.textFileTS.Size = new System.Drawing.Size(224, 26);
+            this.textFileTS.Size = new System.Drawing.Size(146, 26);
             this.textFileTS.Text = "Text File";
             // 
             // propertiesTS
@@ -636,16 +646,6 @@ namespace FileExplorer
             this.propertiesTS.Name = "propertiesTS";
             this.propertiesTS.Size = new System.Drawing.Size(145, 24);
             this.propertiesTS.Text = "Properties";
-            // 
-            // button15
-            // 
-            this.button15.Dock = System.Windows.Forms.DockStyle.Left;
-            this.button15.Location = new System.Drawing.Point(473, 3);
-            this.button15.Name = "button15";
-            this.button15.Size = new System.Drawing.Size(94, 49);
-            this.button15.TabIndex = 7;
-            this.button15.Text = "Properties";
-            this.button15.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
