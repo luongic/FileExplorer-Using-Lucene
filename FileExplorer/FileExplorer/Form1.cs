@@ -540,6 +540,7 @@ namespace FileExplorer
 
             if (item == null) // hiển thị tool trip khi không click vào item
             {
+                openTS.Visible = false;
                 copyTS.Visible = false;
                 cutTS.Visible = false;
                 deleteTS.Visible = false;
@@ -547,6 +548,7 @@ namespace FileExplorer
             }
             else
             {
+                openTS.Visible = true;
                 copyTS.Visible = true;
                 cutTS.Visible = true;
                 deleteTS.Visible = true;
@@ -714,6 +716,7 @@ namespace FileExplorer
         {
             Paste();
         }
+        
         private void Paste()
         {
             // Nếu danh sách đang chứa các Folder or file copy
@@ -756,7 +759,7 @@ namespace FileExplorer
             }
             else
             {
-                MessageBox.Show("Chưa có File/ Folder được Copy hoặc Cut!");
+                return;
             }
             reFresh();
         }
@@ -1458,6 +1461,88 @@ namespace FileExplorer
 
         }
 
+        public static float getSize(DirectoryInfo dir)
+        {
+            float size = 0.0f;
+            try
+            {
+                FileInfo[] fileInfos = dir.GetFiles();
 
+                if (fileInfos.Length > 0)
+                {
+                    foreach (FileInfo file in fileInfos)
+                    {
+                        try
+                        {
+                            size += file.Length;
+                        }
+                        catch
+                        {
+                            continue;
+                        }
+                    }
+                }
+                DirectoryInfo[] directoryInfos = dir.GetDirectories();
+                foreach (DirectoryInfo dirInfo in directoryInfos)
+                {
+                    try
+                    {
+                        size += getSize(dirInfo);
+                    }
+                    catch
+                    {
+                        continue;
+                    }
+                }
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return size;
+            }
+            return size;
+        }
+
+        private void button15_Click(object sender, EventArgs e)
+        {
+            Properties();
+        }
+
+        private void Properties()
+        {
+            string contain = "";
+            if (curDir == null)
+            {
+                return;
+            }
+            else
+            {
+                if (listDir.SelectedItems.Count > 0)
+                {
+                    ListViewItem item = listDir.SelectedItems[0];
+                    if (item.Tag.GetType() == typeof(DirectoryInfo))
+                    {
+                        DirectoryInfo directoryInfo = (DirectoryInfo)item.Tag;
+                        PropertiesForm prop = new PropertiesForm(directoryInfo.FullName, diskInfo.Text);
+                        prop.ShowDialog();
+                    }
+                    else
+                    {
+                        FileInfo fileInfo = (FileInfo)item.Tag;
+                        PropertiesForm prop = new PropertiesForm(fileInfo.FullName, contain);
+                        prop.ShowDialog();
+                    }
+                }
+                else
+                {
+                    PropertiesForm prop = new PropertiesForm(curDir.FullName, contain);
+                    prop.ShowDialog();
+                }
+            }
+        }
+
+        private void propertiesTS_Click(object sender, EventArgs e)
+        {
+            Properties();
+        }
     }
 }

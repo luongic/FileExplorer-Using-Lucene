@@ -187,6 +187,7 @@ namespace FileExplorer
             this.button15.TabIndex = 7;
             this.button15.Text = "Properties";
             this.button15.UseVisualStyleBackColor = true;
+            this.button15.Click += new System.EventHandler(this.button15_Click);
             // 
             // button14
             // 
@@ -712,6 +713,7 @@ namespace FileExplorer
             this.propertiesTS.Name = "propertiesTS";
             this.propertiesTS.Size = new System.Drawing.Size(145, 24);
             this.propertiesTS.Text = "Properties";
+            this.propertiesTS.Click += new System.EventHandler(this.propertiesTS_Click);
             // 
             // Form1
             // 
