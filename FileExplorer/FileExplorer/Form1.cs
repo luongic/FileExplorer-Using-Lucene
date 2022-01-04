@@ -1,4 +1,11 @@
-﻿using System;
+﻿using GemBox.Document;
+using Lucene.Net.Analysis;
+using Lucene.Net.Analysis.Standard;
+using Lucene.Net.Index;
+using Lucene.Net.QueryParsers;
+using Lucene.Net.Search;
+using Lucene.Net.Store;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,6 +15,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -45,6 +53,9 @@ namespace FileExplorer
         {
             InitTreeView();
             tabControl1.SelectedTab = tabControl1.TabPages["Computer"];
+            dateTimePicker1.Visible = false;
+            chooseDateTXT.Visible = false;
+            searchContentBox.Enabled = false;
         }
 
         private void InitTreeView() // Khởi tạo TreeView
@@ -300,32 +311,28 @@ namespace FileExplorer
 
         private void listDir_ItemActivate(object sender, EventArgs e)
         {
-            //try
-            //{
-                if (listDir.SelectedItems[0].Tag.GetType() == typeof(DirectoryInfo))
+            // Căt ra thành hàm openFile chung với 876
+            if (listDir.SelectedItems[0].Tag.GetType() == typeof(DirectoryInfo))
+            {
+                curDir = (DirectoryInfo)listDir.SelectedItems[0].Tag;
+                LoadDirectory();
+                curNode = findCurrentNode(curDir.Name);
+                treeNode.SelectedNode = curNode;
+                pathDir.Text = curDir.FullName;
+            }
+            else
+            {
+                FileInfo file = (FileInfo)listDir.SelectedItems[0].Tag;
+                pathDir.Text = file.FullName;
+
+                new Process
                 {
-                    curDir = (DirectoryInfo)listDir.SelectedItems[0].Tag;
-                    LoadDirectory();
-                    curNode = findCurrentNode(curDir.Name);
-                    treeNode.SelectedNode = curNode;
-                    pathDir.Text = curDir.FullName;
-                }
-                else
-                {
-                    FileInfo file = (FileInfo)listDir.SelectedItems[0].Tag;
-                    pathDir.Text = file.FullName;
-                    
-                    new Process { StartInfo = new ProcessStartInfo(file.FullName) 
-                                    { 
-                                        UseShellExecute = true 
-                                    } 
-                    }.Start();
-                }
-            //}
-            //catch
-            //{
-            //    return;
-            //}
+                    StartInfo = new ProcessStartInfo(file.FullName)
+                    {
+                        UseShellExecute = true
+                    }
+                }.Start();
+            }
         }
 
         private void left_Click(object sender, EventArgs e)
@@ -415,7 +422,31 @@ namespace FileExplorer
 
         private void searchTypeBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            string typeSearch = this.searchTypeBox.SelectedItem.ToString();
+            if (typeSearch == "Date")
+            {
+                dateTimePicker1.Visible = true;
+                chooseDateTXT.Visible = true;
+                searchContentBox.Enabled = false;
+            }
+            if (typeSearch == "Type")
+            {
+                dateTimePicker1.Visible = false;
+                chooseDateTXT.Visible = false;
+                searchContentBox.Enabled = true;
+            }
+            if (typeSearch == "Name")
+            {
+                dateTimePicker1.Visible = false;
+                chooseDateTXT.Visible = false;
+                searchContentBox.Enabled = true;
+            }
+            if (typeSearch == "Content")
+            {
+                dateTimePicker1.Visible = false;
+                chooseDateTXT.Visible = false;
+                searchContentBox.Enabled = true;
+            }
         }
 
         private void button10_Click(object sender, EventArgs e)
@@ -486,7 +517,7 @@ namespace FileExplorer
                 DirectoryInfo curDirectory = curDir;
                 string path = Path.Combine(curDirectory.FullName, "New Folder");
                 string newFolderPath = path;
-                int num = 1;
+                int num = 2;
                 while (System.IO.Directory.Exists(newFolderPath))
                 {
                     newFolderPath = path + " (" + num + ")";
@@ -900,13 +931,39 @@ namespace FileExplorer
             }
         }
 
+        private void newFile()
+        {
+            if (curDir == null)
+            {
+                MessageBox.Show("Chưa chọn nơi tạo File");
+            }
+            else
+            {
+                string currentPath = curDir.FullName;
+                string fileName = "New Text Document.txt";
+                string path = Path.Combine(currentPath, fileName);
+                string newFilePath = path;
+                int num = 2;
+                while (File.Exists(newFilePath))
+                {
+                    newFilePath = path.Remove(path.Length - 4) + "(" + num + ")" + ".txt";
+                    num++;
+                }
+                File.Create(newFilePath).Close();
+                // làm mới và update lại danh sách file
+                reFresh();
+            }
+        }
+
+
+
         //PlaceHoder for searchContentBox-------------------------------
         private void searchContentBox_Enter(object sender, EventArgs e)
         {
             if(searchContentBox.Text == " Search content...")
             {
                 searchContentBox.Text = "";
-                searchContentBox.ForeColor = Color.Black;
+                searchContentBox.ForeColor = System.Drawing.Color.Black;
             }
         }
 
@@ -915,7 +972,7 @@ namespace FileExplorer
             if (searchContentBox.Text == "")
             {
                 searchContentBox.Text = " Search content...";
-                searchContentBox.ForeColor = Color.Silver;
+                searchContentBox.ForeColor = System.Drawing.Color.Silver;
             }
         }
         //------------------------------------------------------------
@@ -928,5 +985,479 @@ namespace FileExplorer
         {
 
         }
+
+        private void textFileTS_Click(object sender, EventArgs e)
+        {
+            newFile();
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            string typeSearch = searchTypeBox.SelectedItem.ToString();
+            if (typeSearch == "")
+            {
+                if (searchContentBox.Text == "")
+                {
+                    MessageBox.Show("Chưa nhập định dạng", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    findByType();
+                }
+            }
+            if (typeSearch == "Date")
+            {
+                findByDay();
+            }
+            if (typeSearch == "Name")
+            {
+                if (searchContentBox.Text == "")
+                {
+                    MessageBox.Show("Chưa nhập tên!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    findByName();
+                    FileName.Clear();
+                }
+
+            }
+            if (typeSearch == "Content")
+            {
+                if (searchContentBox.Text == "")
+                {
+                    MessageBox.Show("Chưa nhập nội dung!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    findByContent();
+                    ContentFile.Clear();
+                    ContentName.Clear();
+                }
+            }
+        }
+
+        public void findByType()
+        {
+            if (searchContentBox.Text == "All")
+            {
+                LoadDirectory();
+            }
+            else
+            {
+                listDir.Items.Clear();
+                string findType = searchContentBox.Text;
+                if (findType.Equals("Folder"))
+                {
+                    foreach (DirectoryInfo subDir in curDir.GetDirectories())
+                    {
+                        ListViewItem lvi = listDir.Items.Add(subDir.Name);
+                        lvi.Tag = subDir;
+                        lvi.ImageIndex = 0;
+                        lvi.SubItems.Add("");
+                        lvi.SubItems.Add("Folder");
+                        lvi.SubItems.Add(subDir.LastWriteTime.ToString());
+                    }
+                }
+                else
+                {
+                    foreach (FileInfo file in curDir.GetFiles())
+                    {
+                        string Type = file.Extension.Substring(1);
+                        if (Type == findType)
+                        {
+                            ListViewItem lvi = listDir.Items.Add(file.Name);
+                            lvi.Tag = file;
+                            int count;
+                            switch (file.Extension.ToUpper())
+                            {
+
+                                case ".DOC":
+                                case ".DOCX":
+                                    count = 2;
+                                    break;
+                                case ".EXE":
+                                    count = 3;
+                                    break;
+                                case ".PDF":
+                                    count = 5;
+                                    break;
+                                case ".PPTX":
+                                case "PTX":
+                                    count = 6;
+                                    break;
+                                case ".RAR":
+                                    count = 7;
+                                    break;
+                                case ".SQL":
+                                    count = 8;
+                                    break;
+                                case ".XLS":
+                                    count = 9;
+                                    break;
+                                case ".ZIP":
+                                    count = 10;
+                                    break;
+                                case ".MP3":
+                                case ".MP4":
+                                case ".WMV":
+                                    count = 12;
+                                    break;
+                                case ".PNG":
+                                case "JPG":
+                                    count = 4;
+                                    break;
+                                default:
+                                    count = 11;
+                                    break;
+                            }
+                            lvi.ImageIndex = count;
+                            lvi.SubItems.Add(GetSizeStr(file.Length));
+                            lvi.SubItems.Add(file.Extension.Substring(1));
+                            lvi.SubItems.Add(file.LastWriteTime.ToString());
+                        }
+
+                    }
+
+                }
+            }
+        }
+
+
+        public void findByDay()
+        {
+            listDir.Items.Clear();
+            // Lấy date input
+            string findDay = dateTimePicker1.Text;
+            // Lọc danh sách folder hiện tại
+            foreach (DirectoryInfo subDir in curDir.GetDirectories())
+            {
+                int day = subDir.LastWriteTime.Day;
+                int month = subDir.LastWriteTime.Month;
+                int year = subDir.LastWriteTime.Year;
+                // Lấy date theo MM/DD/YY 
+                string txtDate = (month.ToString() + "/" + day.ToString() + "/" + year.ToString());
+                // Nếu ngày tìm kiếm giống nhau thì add vào listview
+                if (txtDate == findDay)
+                {
+                    ListViewItem lvi = listDir.Items.Add(subDir.Name);
+                    lvi.Tag = subDir;
+                    lvi.ImageIndex = 0;
+                    lvi.SubItems.Add("");
+                    lvi.SubItems.Add("Folder");
+                    lvi.SubItems.Add(subDir.LastWriteTime.ToString());
+                }
+
+            }
+            // Tương tự đối với file
+            foreach (FileInfo file in curDir.GetFiles())
+            {
+                int day = file.LastWriteTime.Day;
+                int month = file.LastWriteTime.Month;
+                int year = file.LastWriteTime.Year;
+                string txtDate = (month.ToString() + "/" + day.ToString() + "/" + year.ToString());
+                if (txtDate == findDay)
+                {
+                    ListViewItem lvi = listDir.Items.Add(file.Name);
+                    lvi.Tag = file;
+                    int count;
+                    switch (file.Extension.ToUpper())
+                    {
+
+                        case ".DOC":
+                        case ".DOCX":
+                            count = 2;
+                            break;
+                        case ".EXE":
+                            count = 3;
+                            break;
+                        case ".PDF":
+                            count = 5;
+                            break;
+                        case ".PPTX":
+                        case "PTX":
+                            count = 6;
+                            break;
+                        case ".RAR":
+                            count = 7;
+                            break;
+                        case ".SQL":
+                            count = 8;
+                            break;
+                        case ".XLS":
+                            count = 9;
+                            break;
+                        case ".ZIP":
+                            count = 10;
+                            break;
+                        case ".MP3":
+                        case ".MP4":
+                        case ".WMV":
+                            count = 12;
+                            break;
+                        case ".PNG":
+                        case "JPG":
+                            count = 4;
+                            break;
+                        default:
+                            count = 11;
+                            break;
+                    }
+                    lvi.ImageIndex = count;
+                    lvi.SubItems.Add(GetSizeStr(file.Length));
+                    lvi.SubItems.Add(file.Extension.Substring(1));
+                    lvi.SubItems.Add(file.LastWriteTime.ToString());
+                }
+
+            }
+        }
+
+
+        public void loadName(string file)
+        {
+            string Namefile = searchContentBox.Text;
+            var F = new Lucene.Net.Documents.Document();
+            F.Add(new Lucene.Net.Documents.Field("File", file, Lucene.Net.Documents.Field.Store.YES, Lucene.Net.Documents.Field.Index.ANALYZED));
+
+            Lucene.Net.Store.Directory directory = FSDirectory.Open(new System.IO.DirectoryInfo(Environment.CurrentDirectory + "\\LuceneIndex"));
+            Analyzer analyzer = new StandardAnalyzer(Lucene.Net.Util.Version.LUCENE_29);
+            var writer = new IndexWriter(directory, analyzer, true, IndexWriter.MaxFieldLength.LIMITED);
+            writer.AddDocument(F);
+            writer.Optimize();
+            writer.Close();
+
+            IndexReader reader = IndexReader.Open(directory, true);
+            Searcher search = new IndexSearcher(reader);
+            var queryParser = new QueryParser(Lucene.Net.Util.Version.LUCENE_29, "File", analyzer);
+            var query = queryParser.Parse(Namefile);
+
+            TopDocs result = search.Search(query, reader.MaxDoc);
+            var hits = result.ScoreDocs;
+            foreach (var hit in hits)
+            {
+                var documentFS = search.Doc(hit.Doc);
+                FileName.Add(documentFS.Get("File"));
+
+            }
+        }
+
+
+        public void findByName()
+        {
+            listDir.Items.Clear();
+            foreach (DirectoryInfo subDir in curDir.GetDirectories())
+            {
+                loadName(subDir.Name);
+                if (FileName.Contains(subDir.Name))
+                {
+                    loadName(subDir.Name);
+                    ListViewItem lvi = listDir.Items.Add(subDir.Name);
+                    lvi.Tag = subDir;
+                    lvi.ImageIndex = 0;
+                    lvi.SubItems.Add("");
+                    lvi.SubItems.Add("Folder");
+                    lvi.SubItems.Add(subDir.LastWriteTime.ToString());
+                }
+            }
+            foreach (FileInfo file in curDir.GetFiles())
+            {
+                int index = file.Name.LastIndexOf(".");
+                loadName(file.Name.Remove(index));
+                if (FileName.Contains(file.Name.Remove(index)) == true)
+                {
+                    loadName(file.Name.Remove(index));
+                    ListViewItem lvi = listDir.Items.Add(file.Name);
+                    lvi.Tag = file;
+                    int count;
+                    switch (file.Extension.ToUpper())
+                    {
+
+                        case ".DOC":
+                        case ".DOCX":
+                            count = 2;
+                            break;
+                        case ".EXE":
+                            count = 3;
+                            break;
+                        case ".PDF":
+                            count = 5;
+                            break;
+                        case ".PPTX":
+                        case "PTX":
+                            count = 6;
+                            break;
+                        case ".RAR":
+                            count = 7;
+                            break;
+                        case ".SQL":
+                            count = 8;
+                            break;
+                        case ".XLS":
+                            count = 9;
+                            break;
+                        case ".ZIP":
+                            count = 10;
+                            break;
+                        case ".MP3":
+                        case ".MP4":
+                        case ".WMV":
+                            count = 12;
+                            break;
+                        case ".PNG":
+                        case "JPG":
+                            count = 4;
+                            break;
+                        default:
+                            count = 11;
+                            break;
+                    }
+                    lvi.ImageIndex = count;
+                    lvi.SubItems.Add(GetSizeStr(file.Length));
+                    lvi.SubItems.Add(file.Extension.Substring(1));
+                    lvi.SubItems.Add(file.LastWriteTime.ToString());
+                }
+
+            }
+        }
+
+        public void loadByContent(string content, string fileName)
+        {
+            string FileContent = searchContentBox.Text;
+            var F = new Lucene.Net.Documents.Document();
+            F.Add(new Lucene.Net.Documents.Field("FileContent", content, Lucene.Net.Documents.Field.Store.YES, Lucene.Net.Documents.Field.Index.ANALYZED));
+
+            Lucene.Net.Store.Directory directory = FSDirectory.Open(new DirectoryInfo(Environment.CurrentDirectory + "\\LuceneIndex"));
+            Analyzer analyzer = new StandardAnalyzer(Lucene.Net.Util.Version.LUCENE_29);
+            var writer = new IndexWriter(directory, analyzer, true, IndexWriter.MaxFieldLength.LIMITED);
+            writer.AddDocument(F);
+            writer.Optimize();
+            writer.Close();
+
+            IndexReader reader = IndexReader.Open(directory, true);
+            Searcher search = new IndexSearcher(reader);
+            var queryParser = new QueryParser(Lucene.Net.Util.Version.LUCENE_29, "FileContent", analyzer);
+
+            var query = queryParser.Parse(FileContent);
+            TopDocs result = search.Search(query, reader.MaxDoc);
+
+            var hits = result.ScoreDocs;
+            foreach (var hit in hits)
+            {
+                var documentFS = search.Doc(hit.Doc);
+                ContentFile.Add(documentFS.Get("FileContent"));
+                ContentName.Add(fileName);
+
+            }
+
+        }
+
+        public void findByContent()
+        {
+            listDir.Items.Clear();
+            foreach (FileInfo file in curDir.GetFiles())
+            {
+
+
+                int count;
+                switch (file.Extension.ToUpper())
+                {
+
+                    case ".DOC":
+                    case ".DOCX":
+                        count = 2;
+                        break;
+                    case ".EXE":
+                        count = 3;
+                        break;
+                    case ".PDF":
+                        count = 5;
+                        break;
+                    case ".PPTX":
+                    case "PTX":
+                        count = 6;
+                        break;
+                    case ".RAR":
+                        count = 7;
+                        break;
+                    case ".SQL":
+                        count = 8;
+                        break;
+                    case ".XLS":
+                        count = 9;
+                        break;
+                    case ".ZIP":
+                        count = 10;
+                        break;
+                    case ".MP3":
+                    case ".MP4":
+                    case ".WMV":
+                        count = 12;
+                        break;
+                    case ".PNG":
+                    case "JPG":
+                        count = 4;
+                        break;
+                    default:
+                        count = 11;
+                        break;
+                }
+
+                if (count == 2)//đoc file Word
+                {
+                    // If using Professional version, put your serial key below.
+                    ComponentInfo.SetLicense("FREE-LIMITED-KEY");
+
+                    // Load Word document from file's path.
+                    var document = DocumentModel.Load(@file.FullName.ToString());
+
+                    // Get Word document's plain text.
+                    string text = document.Content.ToString();
+
+                    // Get Word document's count statistics.
+                    int charactersCount = text.Replace(Environment.NewLine, string.Empty).Length;
+                    int wordsCount = Regex.Matches(text, @"[\S]+").Count;
+                    int paragraphsCount = document.GetChildElements(true, ElementType.Paragraph).Count();
+                    int pageCount = document.GetPaginator().Pages.Count;
+
+
+                    loadByContent(text.ToLower(), file.Name);
+                }
+
+                //Đọc file pdf
+                if (count == 5)
+                {
+                    StringBuilder text = new StringBuilder();
+                    using (iTextSharp.text.pdf.PdfReader reader = new iTextSharp.text.pdf.PdfReader(file.FullName))
+                    {
+                        for (int i = 1; i <= reader.NumberOfPages; i++)
+                        {
+                            text.Append(iTextSharp.text.pdf.parser.PdfTextExtractor.GetTextFromPage(reader, i));
+                        }
+                    }
+                    loadByContent(text.ToString().ToLower(), file.Name);
+                }
+
+                //đọc file Text
+                if (file.Extension.ToUpper() == ".TXT")
+                {
+                    string testData = File.ReadAllText(@file.FullName);
+                    loadByContent(testData.ToString().ToLower(), file.Name);
+                }
+
+
+                if (ContentName.IndexOf(file.Name) != -1)
+                {
+                    ListViewItem lvi = listDir.Items.Add(file.Name);
+                    lvi.Tag = file;
+                    lvi.ImageIndex = count;
+                    lvi.SubItems.Add(file.Length.ToString() + " KB");
+                    lvi.SubItems.Add(file.Extension.Substring(1));
+                    lvi.SubItems.Add(file.LastWriteTime.ToString());
+                }
+            }
+
+        }
+
+
     }
 }
