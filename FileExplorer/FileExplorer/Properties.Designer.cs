@@ -1,7 +1,7 @@
 ﻿
 namespace FileExplorer
 {
-    partial class Properties
+    partial class PropertiesForm
     {
         /// <summary>
         /// Required designer variable.
@@ -220,7 +220,7 @@ namespace FileExplorer
             this.label13.TabIndex = 18;
             this.label13.Text = "label13";
             // 
-            // Properties
+            // PropertiesForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -244,7 +244,7 @@ namespace FileExplorer
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.pictureBox1);
-            this.Name = "Properties";
+            this.Name = "PropertiesForm";
             this.Text = "Properties";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);

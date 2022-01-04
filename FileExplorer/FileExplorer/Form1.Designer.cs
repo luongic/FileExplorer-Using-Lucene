@@ -29,12 +29,14 @@ namespace FileExplorer
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.button3 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.Computer = new System.Windows.Forms.TabPage();
+            this.button14 = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
@@ -69,9 +71,22 @@ namespace FileExplorer
             this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader3 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader4 = new System.Windows.Forms.ColumnHeader();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.openTS = new System.Windows.Forms.ToolStripMenuItem();
+            this.refreshTS = new System.Windows.Forms.ToolStripMenuItem();
+            this.cutTS = new System.Windows.Forms.ToolStripMenuItem();
+            this.copyTS = new System.Windows.Forms.ToolStripMenuItem();
+            this.pasteTS = new System.Windows.Forms.ToolStripMenuItem();
+            this.renameTS = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteTS = new System.Windows.Forms.ToolStripMenuItem();
+            this.propertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.folderTS = new System.Windows.Forms.ToolStripMenuItem();
+            this.textFileTS = new System.Windows.Forms.ToolStripMenuItem();
+            this.propertiesTS = new System.Windows.Forms.ToolStripMenuItem();
+            this.button15 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
+            this.Computer.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -83,12 +98,13 @@ namespace FileExplorer
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.Computer);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Top;
@@ -96,7 +112,7 @@ namespace FileExplorer
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(937, 88);
-            this.tabControl1.TabIndex = 0;
+            this.tabControl1.TabIndex = 1;
             // 
             // tabPage1
             // 
@@ -117,35 +133,52 @@ namespace FileExplorer
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(94, 49);
             this.button3.TabIndex = 1;
-            this.button3.Text = "New File";
+            this.button3.Text = "New Folder";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button5
             // 
+            this.button5.BackColor = System.Drawing.Color.Red;
             this.button5.Dock = System.Windows.Forms.DockStyle.Right;
-            this.button5.Location = new System.Drawing.Point(815, 3);
+            this.button5.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.button5.ForeColor = System.Drawing.Color.White;
+            this.button5.Location = new System.Drawing.Point(866, 3);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(111, 49);
+            this.button5.Size = new System.Drawing.Size(60, 49);
             this.button5.TabIndex = 0;
-            this.button5.Text = "Exit";
-            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Text = "X";
+            this.button5.UseVisualStyleBackColor = false;
             this.button5.Click += new System.EventHandler(this.button2_Click);
             // 
-            // tabPage2
+            // Computer
             // 
-            this.tabPage2.Controls.Add(this.button9);
-            this.tabPage2.Controls.Add(this.button8);
-            this.tabPage2.Controls.Add(this.button7);
-            this.tabPage2.Controls.Add(this.button6);
-            this.tabPage2.Controls.Add(this.button4);
-            this.tabPage2.Controls.Add(this.button2);
-            this.tabPage2.Location = new System.Drawing.Point(4, 29);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(929, 55);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Computer";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.Computer.Controls.Add(this.button15);
+            this.Computer.Controls.Add(this.button14);
+            this.Computer.Controls.Add(this.button9);
+            this.Computer.Controls.Add(this.button8);
+            this.Computer.Controls.Add(this.button7);
+            this.Computer.Controls.Add(this.button6);
+            this.Computer.Controls.Add(this.button4);
+            this.Computer.Controls.Add(this.button2);
+            this.Computer.Location = new System.Drawing.Point(4, 29);
+            this.Computer.Name = "Computer";
+            this.Computer.Padding = new System.Windows.Forms.Padding(3);
+            this.Computer.Size = new System.Drawing.Size(929, 55);
+            this.Computer.TabIndex = 1;
+            this.Computer.Text = "Computer";
+            this.Computer.UseVisualStyleBackColor = true;
+            // 
+            // button14
+            // 
+            this.button14.Dock = System.Windows.Forms.DockStyle.Left;
+            this.button14.Location = new System.Drawing.Point(379, 3);
+            this.button14.Name = "button14";
+            this.button14.Size = new System.Drawing.Size(94, 49);
+            this.button14.TabIndex = 6;
+            this.button14.Text = "Rename";
+            this.button14.UseVisualStyleBackColor = true;
+            this.button14.Click += new System.EventHandler(this.button14_Click);
             // 
             // button9
             // 
@@ -175,8 +208,9 @@ namespace FileExplorer
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(94, 49);
             this.button7.TabIndex = 3;
-            this.button7.Text = "Properties";
+            this.button7.Text = "Delete";
             this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // button6
             // 
@@ -187,6 +221,7 @@ namespace FileExplorer
             this.button6.TabIndex = 2;
             this.button6.Text = "Paste";
             this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // button4
             // 
@@ -197,6 +232,7 @@ namespace FileExplorer
             this.button4.TabIndex = 1;
             this.button4.Text = "Copy";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click_1);
             // 
             // button2
             // 
@@ -205,8 +241,9 @@ namespace FileExplorer
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(94, 49);
             this.button2.TabIndex = 0;
-            this.button2.Text = "New Folder";
+            this.button2.Text = "Cut";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click_1);
             // 
             // tabPage3
             // 
@@ -414,6 +451,7 @@ namespace FileExplorer
             this.button1.TabIndex = 0;
             this.button1.Text = "Copy Path";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // diskInfoPanel
             // 
@@ -436,6 +474,7 @@ namespace FileExplorer
             // 
             // splitContainer1
             // 
+            this.splitContainer1.Cursor = System.Windows.Forms.Cursors.VSplit;
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 114);
             this.splitContainer1.Name = "splitContainer1";
@@ -448,16 +487,17 @@ namespace FileExplorer
             // 
             this.splitContainer1.Panel2.Controls.Add(this.listDir);
             this.splitContainer1.Size = new System.Drawing.Size(937, 394);
-            this.splitContainer1.SplitterDistance = 310;
+            this.splitContainer1.SplitterDistance = 258;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 3;
             // 
             // treeNode
             // 
+            this.treeNode.Cursor = System.Windows.Forms.Cursors.Default;
             this.treeNode.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeNode.Location = new System.Drawing.Point(0, 0);
             this.treeNode.Name = "treeNode";
-            this.treeNode.Size = new System.Drawing.Size(310, 394);
+            this.treeNode.Size = new System.Drawing.Size(258, 394);
             this.treeNode.TabIndex = 0;
             this.treeNode.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeNode_AfterSelect);
             // 
@@ -468,15 +508,17 @@ namespace FileExplorer
             this.columnHeader2,
             this.columnHeader3,
             this.columnHeader4});
+            this.listDir.Cursor = System.Windows.Forms.Cursors.Default;
             this.listDir.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listDir.HideSelection = false;
             this.listDir.LabelEdit = true;
             this.listDir.Location = new System.Drawing.Point(0, 0);
             this.listDir.Name = "listDir";
-            this.listDir.Size = new System.Drawing.Size(622, 394);
+            this.listDir.Size = new System.Drawing.Size(674, 394);
             this.listDir.TabIndex = 3;
             this.listDir.UseCompatibleStateImageBehavior = false;
             this.listDir.View = System.Windows.Forms.View.Details;
+            this.listDir.AfterLabelEdit += new System.Windows.Forms.LabelEditEventHandler(this.listDir_AfterLabelEdit);
             this.listDir.ItemActivate += new System.EventHandler(this.listDir_ItemActivate);
             // 
             // columnHeader1
@@ -500,11 +542,117 @@ namespace FileExplorer
             this.columnHeader4.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeader4.Width = 180;
             // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.openTS,
+            this.refreshTS,
+            this.cutTS,
+            this.copyTS,
+            this.pasteTS,
+            this.renameTS,
+            this.deleteTS,
+            this.propertiesToolStripMenuItem,
+            this.propertiesTS});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(211, 248);
+            this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
+            // 
+            // openTS
+            // 
+            this.openTS.Name = "openTS";
+            this.openTS.Size = new System.Drawing.Size(210, 24);
+            this.openTS.Text = "Open";
+            this.openTS.Click += new System.EventHandler(this.openTS_Click);
+            // 
+            // refreshTS
+            // 
+            this.refreshTS.Name = "refreshTS";
+            this.refreshTS.Size = new System.Drawing.Size(210, 24);
+            this.refreshTS.Text = "Refresh";
+            this.refreshTS.Click += new System.EventHandler(this.refreshTS_Click);
+            // 
+            // cutTS
+            // 
+            this.cutTS.Name = "cutTS";
+            this.cutTS.Size = new System.Drawing.Size(210, 24);
+            this.cutTS.Text = "Cut";
+            this.cutTS.Click += new System.EventHandler(this.cutTS_Click);
+            // 
+            // copyTS
+            // 
+            this.copyTS.Name = "copyTS";
+            this.copyTS.Size = new System.Drawing.Size(210, 24);
+            this.copyTS.Text = "Copy";
+            this.copyTS.Click += new System.EventHandler(this.copyTS_Click);
+            // 
+            // pasteTS
+            // 
+            this.pasteTS.Name = "pasteTS";
+            this.pasteTS.Size = new System.Drawing.Size(210, 24);
+            this.pasteTS.Text = "Paste";
+            this.pasteTS.Click += new System.EventHandler(this.pasteTS_Click);
+            // 
+            // renameTS
+            // 
+            this.renameTS.Name = "renameTS";
+            this.renameTS.Size = new System.Drawing.Size(210, 24);
+            this.renameTS.Text = "Rename";
+            this.renameTS.Click += new System.EventHandler(this.renameTS_Click);
+            // 
+            // deleteTS
+            // 
+            this.deleteTS.Name = "deleteTS";
+            this.deleteTS.Size = new System.Drawing.Size(210, 24);
+            this.deleteTS.Text = "Delete";
+            this.deleteTS.Click += new System.EventHandler(this.deleteTS_Click);
+            // 
+            // propertiesToolStripMenuItem
+            // 
+            this.propertiesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.folderTS,
+            this.textFileTS});
+            this.propertiesToolStripMenuItem.Name = "propertiesToolStripMenuItem";
+            this.propertiesToolStripMenuItem.Size = new System.Drawing.Size(145, 24);
+            this.propertiesToolStripMenuItem.Text = "New";
+            this.propertiesToolStripMenuItem.Click += new System.EventHandler(this.propertiesToolStripMenuItem_Click);
+            // 
+            // folderTS
+            // 
+            this.folderTS.Name = "folderTS";
+            this.folderTS.Size = new System.Drawing.Size(224, 26);
+            this.folderTS.Text = "Folder";
+            this.folderTS.Click += new System.EventHandler(this.folderTS_Click);
+            // 
+            // textFileTS
+            // 
+            this.textFileTS.Name = "textFileTS";
+            this.textFileTS.Size = new System.Drawing.Size(224, 26);
+            this.textFileTS.Text = "Text File";
+            // 
+            // propertiesTS
+            // 
+            this.propertiesTS.Name = "propertiesTS";
+            this.propertiesTS.Size = new System.Drawing.Size(145, 24);
+            this.propertiesTS.Text = "Properties";
+            // 
+            // button15
+            // 
+            this.button15.Dock = System.Windows.Forms.DockStyle.Left;
+            this.button15.Location = new System.Drawing.Point(473, 3);
+            this.button15.Name = "button15";
+            this.button15.Size = new System.Drawing.Size(94, 49);
+            this.button15.TabIndex = 7;
+            this.button15.Text = "Properties";
+            this.button15.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(937, 532);
+            this.ContextMenuStrip = this.contextMenuStrip1;
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.diskInfoPanel);
             this.Controls.Add(this.panel1);
@@ -514,7 +662,7 @@ namespace FileExplorer
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
+            this.Computer.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
@@ -531,6 +679,7 @@ namespace FileExplorer
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -539,7 +688,7 @@ namespace FileExplorer
 
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage Computer;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.Panel panel1;
@@ -576,6 +725,20 @@ namespace FileExplorer
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox searchTypeBox;
         private System.Windows.Forms.Splitter splitter1;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem openTS;
+        private System.Windows.Forms.ToolStripMenuItem refreshTS;
+        private System.Windows.Forms.ToolStripMenuItem cutTS;
+        private System.Windows.Forms.ToolStripMenuItem copyTS;
+        private System.Windows.Forms.ToolStripMenuItem pasteTS;
+        private System.Windows.Forms.ToolStripMenuItem renameTS;
+        private System.Windows.Forms.ToolStripMenuItem deleteTS;
+        private System.Windows.Forms.ToolStripMenuItem propertiesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem propertiesTS;
+        private System.Windows.Forms.ToolStripMenuItem folderTS;
+        private System.Windows.Forms.ToolStripMenuItem textFileTS;
+        private System.Windows.Forms.Button button14;
+        private System.Windows.Forms.Button button15;
     }
 }
 

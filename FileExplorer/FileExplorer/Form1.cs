@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -32,6 +33,9 @@ namespace FileExplorer
         private int fileCount = 0;
         private int directorieCount = 0;
 
+        ArrayList arrCopy = new ArrayList();
+        ArrayList arrCut = new ArrayList();
+
         public Form1()
         {
             InitializeComponent();
@@ -40,6 +44,7 @@ namespace FileExplorer
         private void Form1_Load(object sender, EventArgs e)
         {
             InitTreeView();
+            tabControl1.SelectedTab = tabControl1.TabPages["Computer"];
         }
 
         private void InitTreeView() // Khởi tạo TreeView
@@ -307,11 +312,12 @@ namespace FileExplorer
                     FileInfo file = (FileInfo)listDir.SelectedItems[0].Tag;
                     pathDir.Text = file.FullName;
                     
-                    new Process { StartInfo = new ProcessStartInfo(file.FullName) { 
+                    new Process { StartInfo = new ProcessStartInfo(file.FullName) 
+                                    { 
                                         UseShellExecute = true 
                                     } 
                     }.Start();
-            }
+                }
             //}
             //catch
             //{
@@ -446,9 +452,452 @@ namespace FileExplorer
             //{
                
             //}
-            for (int i = 0; i < listDir.Items.Count; i++)
+            //for (int i = 0; i < listDir.Items.Count; i++)
+            //{
+            //    listDir.Items[i]. = true;
+            //}
+        }
+
+        private void button1_Click(object sender, EventArgs e) //Copy Path
+        {
+            if (pathDir.Text == "")
             {
-                listDir.Items[i]. = true;
+                MessageBox.Show("Không có đường dẫn");
+            }
+            else
+            {
+                Clipboard.SetText(pathDir.Text);
+                MessageBox.Show("Đã Sao Chép đường đẫn");
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            newFolder();
+        }
+        private void newFolder()
+        {
+            if (curDir == null)
+            {
+                MessageBox.Show("Chưa chọn nơi tạo");
+            }
+            else
+            {
+                // Tạo ra Folder với tên mặc định là New Folder
+                DirectoryInfo curDirectory = curDir;
+                string path = Path.Combine(curDirectory.FullName, "New Folder");
+                string newFolderPath = path;
+                int num = 1;
+                while (System.IO.Directory.Exists(newFolderPath))
+                {
+                    newFolderPath = path + " (" + num + ")";
+                    num++;
+                }
+                DirectoryInfo dirInfo = System.IO.Directory.CreateDirectory(newFolderPath);
+                reFresh();
+            }
+        }
+
+        private void propertiesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
+        {
+            System.Drawing.Point curPoint = listDir.PointToClient(Cursor.Position);
+            ListViewItem item = listDir.GetItemAt(curPoint.X, curPoint.Y);
+
+            if (item == null) // hiển thị tool trip khi không click vào item
+            {
+                copyTS.Visible = false;
+                cutTS.Visible = false;
+                deleteTS.Visible = false;
+                renameTS.Visible = false;
+            }
+            else
+            {
+                copyTS.Visible = true;
+                cutTS.Visible = true;
+                deleteTS.Visible = true;
+                renameTS.Visible = true;
+            }
+        }
+
+        private void folderTS_Click(object sender, EventArgs e)
+        {
+            newFolder();
+        }
+
+        private void button14_Click(object sender, EventArgs e)
+        {
+            if (listDir.SelectedItems.Count > 0)
+            {
+                listDir.SelectedItems[0].BeginEdit();
+            }
+        }
+        public static bool checkFileName(string fileName)
+        {
+            const string errChar = "\\/:*?\"<>|";
+
+            foreach (char ch in errChar)
+            {
+                if (fileName.Contains(ch.ToString()))
+                    return false;
+            }
+            return true;
+        }
+
+        private void listDir_AfterLabelEdit(object sender, LabelEditEventArgs e)
+        {
+            string nameEdit = e.Label;
+            ListViewItem lv = listDir.SelectedItems[0];
+            // Nếu không thay đổi tên
+            if (string.IsNullOrEmpty(e.Label) || nameEdit.Equals(lv.Text))
+            {
+                e.CancelEdit = true;
+                return;
+            }
+            // Kiểm tra tên có chứa các kí tự đặc biệt
+            else if (!checkFileName(nameEdit))
+            {
+                MessageBox.Show("Tên không được chứa kí tự đặc biệt",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                // Nếu thay đổi tên folder 
+                if (lv.Tag.GetType() == typeof(DirectoryInfo))
+                {
+                    // Bắt trùng tên folder
+                    if (System.IO.Directory.Exists(Path.Combine(curDir.FullName, nameEdit)))
+                    {
+                        MessageBox.Show("Trùng tên", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        e.CancelEdit = true;
+                    }
+                    else
+                    {
+                        DirectoryInfo dirEdit = (DirectoryInfo)lv.Tag;
+                        System.IO.Directory.Move(dirEdit.FullName, Path.Combine(curDir.FullName, nameEdit));
+                        DirectoryInfo dirtmp = new DirectoryInfo(Path.Combine(curDir.FullName, nameEdit));
+                        lv.Tag = dirtmp;
+                    }
+                }
+                else //Nếu thay đổi tên file
+                {
+                    // Bắt trùng tên file
+                    if (File.Exists(Path.Combine(curDir.FullName, nameEdit)))
+                    {
+                        MessageBox.Show("Trùng tên", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        e.CancelEdit = true;
+                    }
+                    else
+                    {
+                        FileInfo dirEdit = (FileInfo)lv.Tag;
+                        File.Move(dirEdit.FullName, Path.Combine(curDir.FullName, nameEdit));
+                        FileInfo dirtmp = new FileInfo(Path.Combine(curDir.FullName, nameEdit));
+                        lv.Tag = dirtmp;
+                    }
+                }
+            }
+            reFresh();
+        }
+
+        private void Copy()
+        {
+            // Nếu chưa chọn folder hoặc file để copy
+            if (listDir.SelectedItems.Count < -1)
+            {
+                MessageBox.Show("Cần chọn File/ Folder để copy!");
+            }
+            else
+            {
+                try
+                {
+                    arrCopy.Clear();
+                    arrCut.Clear();
+                    // Thêm file or folder cần copy vào danh sách tạm thời
+                    foreach (ListViewItem item in listDir.SelectedItems)
+                    {
+                        arrCopy.Add(item.Tag);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Console.WriteLine(ex.StackTrace);
+                }
+            }
+        }
+
+        private void copyTS_Click(object sender, EventArgs e)
+        {
+            Copy();
+        }
+
+        private void Cut()
+        {
+            // Nếu chưa chọn folder hoặc file để cut
+            if (listDir.SelectedItems.Count < -1)
+            {
+                MessageBox.Show("Cần chọn File/ Folder để Cut!");
+            }
+            else
+            {
+                try
+                {
+                    arrCut.Clear();
+                    arrCopy.Clear();
+                    // Thêm file or folder cần di chuyển vào danh sách tạm thời
+                    foreach (ListViewItem item in listDir.SelectedItems)
+                    {
+                        arrCut.Add(item.Tag);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Console.WriteLine(ex.StackTrace);
+                }
+            }
+        }
+
+        private void cutTS_Click(object sender, EventArgs e)
+        {
+            Cut();
+        }
+
+        private void renameTS_Click(object sender, EventArgs e)
+        {
+            if (listDir.SelectedItems.Count > 0)
+            {
+                listDir.SelectedItems[0].BeginEdit();
+            }
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            Paste();
+        }
+
+        private void pasteTS_Click(object sender, EventArgs e)
+        {
+            Paste();
+        }
+        private void Paste()
+        {
+            // Nếu danh sách đang chứa các Folder or file copy
+            if (arrCopy.Count > 0)
+            {
+                //Lấy danh sách các folder/ file đang copy
+                foreach (var tmp in arrCopy)
+                {
+                    if (tmp.GetType() == typeof(DirectoryInfo))  //Copy folder
+                    {
+                        DirectoryInfo folderpaste = (DirectoryInfo)tmp;
+
+                        CopyorCutFolder(folderpaste.FullName, true); //Dùng hàm CopyorCutFolder() để paste ra folder copy
+                    }
+                    else //Copy file
+                    {
+                        FileInfo file = (FileInfo)tmp;
+                        // Dùng hàm CopyorCutFile() để paste ra folder copy
+                        CopyorCutFile(file.FullName, true);
+                    }
+                }
+            }
+            // Nếu danh sách đang chứa các Folder or file Cut
+            else if (arrCut.Count > 0)
+            {
+                // Lấy danh sách các folder/ file đang di chuyển
+                foreach (var tmp in arrCut)
+                {
+                    if (tmp.GetType() == typeof(DirectoryInfo)) //Cut folder
+                    {
+                        DirectoryInfo folderpaste = (DirectoryInfo)tmp; //Tạo DirectoryInfo tạm để lưu thông tin folder
+                        CopyorCutFolder(folderpaste.FullName, false); // Dùng hàm CopyorCutFolder() để paste ra folder
+                    }
+                    else  //Cut File
+                    {
+                        FileInfo file = (FileInfo)tmp; // tạo fileInfo tạm để lưu thông tin file
+                        CopyorCutFile(file.FullName, false); // Dùng hàm CopyorCutFile() để paste ra folder
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Chưa có File/ Folder được Copy hoặc Cut!");
+            }
+            reFresh();
+        }
+
+        private void CopyorCutFile(string path, bool flag)
+        {
+            try
+            {
+                FileInfo file = new FileInfo(path);
+                string destPath = Path.Combine(curDir.FullName, file.Name);
+                if (listDir.SelectedItems.Count > 0)
+                {
+                    ListViewItem item = listDir.SelectedItems[0];
+                    if (item.Tag.GetType() == typeof(DirectoryInfo))
+                    {
+                        DirectoryInfo directoryInfo = (DirectoryInfo)item.Tag;
+                        destPath = Path.Combine(directoryInfo.FullName, file.Name);
+                    }
+                }
+                if (flag)
+                {
+                    file.CopyTo(destPath);
+                }
+                else
+                {
+                    file.MoveTo(destPath);
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void CopyorCutFolder(string path, bool flag)
+        {
+            try
+            {
+                DirectoryInfo sourcefoulder = new DirectoryInfo(path);
+                string destPath = Path.Combine(curDir.FullName, sourcefoulder.Name);
+                if (listDir.SelectedItems.Count > 0)
+                {
+                    ListViewItem item = listDir.SelectedItems[0];
+                    if (item.Tag.GetType() == typeof(DirectoryInfo))
+                    {
+                        DirectoryInfo directoryInfo = (DirectoryInfo)item.Tag;
+                        destPath = Path.Combine(directoryInfo.FullName, sourcefoulder.Name);
+                    }
+                }
+                DirectoryInfo destfolder = new DirectoryInfo(destPath);
+                if (flag)
+                {
+                    CopyFolder(sourcefoulder, destfolder);
+                }
+                else
+                {
+                    sourcefoulder.MoveTo(destPath);
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void CopyFolder(DirectoryInfo source, DirectoryInfo dest)
+        {
+            System.IO.Directory.CreateDirectory(dest.FullName);
+            foreach (FileInfo file in source.GetFiles())
+            {
+                file.CopyTo(Path.Combine(dest.FullName, file.Name));
+            }
+
+            foreach (DirectoryInfo sourceSubDir in source.GetDirectories())
+            {
+                DirectoryInfo destPath = new DirectoryInfo(Path.Combine(dest.FullName, sourceSubDir.Name));
+                CopyFolder(sourceSubDir, destPath);
+            }
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            Cut();
+        }
+
+        private void button4_Click_1(object sender, EventArgs e)
+        {
+            Copy();
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            Delete();
+        }
+
+        private void Delete()
+        {
+            // Nếu chọn vị trí listview cần xóa
+            if (listDir.SelectedItems.Count > 0)
+            {
+                DialogResult dialogResult = MessageBox.Show("Bạn có muốn xóa?", "Deletion", MessageBoxButtons.YesNo,MessageBoxIcon.Exclamation);
+                //Dialog Confirm
+                if (dialogResult == DialogResult.No)
+                    return;
+                else
+                {
+                    try
+                    {
+                        // Lấy item chọn
+                        foreach (ListViewItem item in listDir.SelectedItems)
+                        {
+                            // Nếu là Folder
+                            if (item.Tag.GetType() == typeof(DirectoryInfo))
+                            {
+                                DirectoryInfo folderdelete = (DirectoryInfo)item.Tag;
+                                System.IO.Directory.Delete(folderdelete.FullName, true);
+                                listDir.Refresh();
+                            }
+                            // Nếu là File
+                            else
+                            {
+                                FileInfo file = (FileInfo)item.Tag;
+                                File.Delete(file.FullName);
+                            }
+                            // Xóa Item ra khỏi listview
+                            listDir.Items.Remove(item);
+                        }
+                        UpdateTreeView();
+
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        Console.WriteLine(ex.StackTrace);
+                    }
+                }
+            }
+        }
+
+        private void deleteTS_Click(object sender, EventArgs e)
+        {
+            Delete();
+        }
+
+        private void refreshTS_Click(object sender, EventArgs e)
+        {
+            Refresh();
+        }
+
+        private void openTS_Click(object sender, EventArgs e)
+        {
+            if (listDir.SelectedItems[0].Tag.GetType() == typeof(DirectoryInfo))
+            {
+                curDir = (DirectoryInfo)listDir.SelectedItems[0].Tag;
+                LoadDirectory();
+                curNode = findCurrentNode(curDir.Name);
+                treeNode.SelectedNode = curNode;
+                pathDir.Text = curDir.FullName;
+            }
+            else
+            {
+                FileInfo file = (FileInfo)listDir.SelectedItems[0].Tag;
+                pathDir.Text = file.FullName;
+
+                new Process
+                {
+                    StartInfo = new ProcessStartInfo(file.FullName)
+                    {
+                        UseShellExecute = true
+                    }
+                }.Start();
             }
         }
     }
