@@ -130,43 +130,30 @@ namespace FileExplorer
         {
             directorieCount = 0;
             fileCount = 0;
+            ImageList iList = new ImageList();
+           
+            iList.Images.Add(new Icon("icons/folders.ico"));
+            iList.Images.Add(new Icon("icons/document.ico"));
+            iList.Images.Add(new Icon("icons/doc.ico"));//2
+            iList.Images.Add(new Icon("icons/exe.ico"));//3
+            iList.Images.Add(new Icon("icons/img.ico"));//4
+            iList.Images.Add(new Icon("icons/pdf.ico"));//5
+            iList.Images.Add(new Icon("icons/pptx.ico"));//6
+            iList.Images.Add(new Icon("icons/rar.ico"));//7
+            iList.Images.Add(new Icon("icons/sql.ico"));//8
+            iList.Images.Add(new Icon("icons/xlxs.ico"));//9
+            iList.Images.Add(new Icon("icons/unknown.ico"));//10
+            iList.Images.Add(new Icon("icons/video.ico"));//11
             // them danh icon cho listview
             pathDir.Text = curDir.FullName; //textBox Path
             if (flagLarge == true) //Large Icon View
             {
-                ImageList iList = new ImageList();
                 iList.ImageSize = new System.Drawing.Size(64, 64);
-                iList.Images.Add(new Icon("icons/folders.ico"));
-                iList.Images.Add(new Icon("icons/document.ico"));
-                iList.Images.Add(new Icon("icons/doc.ico"));//2
-                iList.Images.Add(new Icon("icons/exe.ico"));//3
-                iList.Images.Add(new Icon("icons/img.ico"));//4
-                iList.Images.Add(new Icon("icons/pdf.ico"));//5
-                iList.Images.Add(new Icon("icons/pptx.ico"));//6
-                iList.Images.Add(new Icon("icons/rar.ico"));//7
-                iList.Images.Add(new Icon("icons/sql.ico"));//8
-                iList.Images.Add(new Icon("icons/xlxs.ico"));//9
-                iList.Images.Add(new Icon("icons/rar.ico"));//10
-                iList.Images.Add(new Icon("icons/unknown.ico"));//11
-                iList.Images.Add(new Icon("icons/video.ico"));//12
                 listDir.LargeImageList = iList;
             }
             else //Small List View
             {
-                ImageList iList = new ImageList();
-                iList.Images.Add(new Icon("icons/folders.ico"));
-                iList.Images.Add(new Icon("icons/document.ico"));
-                iList.Images.Add(new Icon("icons/doc.ico"));//2
-                iList.Images.Add(new Icon("icons/exe.ico"));//3
-                iList.Images.Add(new Icon("icons/img.ico"));//4
-                iList.Images.Add(new Icon("icons/pdf.ico"));//5
-                iList.Images.Add(new Icon("icons/pptx.ico"));//6
-                iList.Images.Add(new Icon("icons/rar.ico"));//7
-                iList.Images.Add(new Icon("icons/sql.ico"));//8
-                iList.Images.Add(new Icon("icons/xlxs.ico"));//9
-                iList.Images.Add(new Icon("icons/rar.ico"));//10
-                iList.Images.Add(new Icon("icons/unknown.ico"));//11
-                iList.Images.Add(new Icon("icons/video.ico"));//12
+                
                 listDir.SmallImageList = iList;
             }
             listDir.Items.Clear();
@@ -226,6 +213,7 @@ namespace FileExplorer
                         break;
 
                     case ".RAR":
+                    case ".ZIP":
                         typeFile = 7;
                         break;
 
@@ -234,17 +222,14 @@ namespace FileExplorer
                         break;
 
                     case ".XLS":
+                    case ".XLXS":
                         typeFile = 9;
-                        break;
-
-                    case ".ZIP":
-                        typeFile = 10;
                         break;
 
                     case ".MP3":
                     case ".MP4":
                     case ".WMV":
-                        typeFile = 12;
+                        typeFile = 11;
                         break;
 
                     case ".PNG":
@@ -255,7 +240,7 @@ namespace FileExplorer
                         typeFile = 1;
                         break;
                     default:
-                        typeFile = 11;
+                        typeFile = 10;
                         break;
                 }
                 ListViewItem listItem = listDir.Items.Add(file.Name);
@@ -999,6 +984,10 @@ namespace FileExplorer
             string typeSearch = searchTypeBox.SelectedItem.ToString();
             if (typeSearch == "")
             {
+                MessageBox.Show("Chưa nhập kiểu tìm kiếm", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else if(typeSearch == "Type")
+            {
                 if (searchContentBox.Text == "")
                 {
                     MessageBox.Show("Chưa nhập định dạng", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -1008,15 +997,15 @@ namespace FileExplorer
                     findByType();
                 }
             }
-            if (typeSearch == "Date")
+            else if (typeSearch == "Date")
             {
                 findByDay();
             }
-            if (typeSearch == "Name")
+            else if (typeSearch == "Name")
             {
                 if (searchContentBox.Text == "")
                 {
-                    MessageBox.Show("Chưa nhập tên!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Chưa nhập tên", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
                 {
@@ -1025,11 +1014,11 @@ namespace FileExplorer
                 }
 
             }
-            if (typeSearch == "Content")
+            else if (typeSearch == "Content")
             {
                 if (searchContentBox.Text == "")
                 {
-                    MessageBox.Show("Chưa nhập nội dung!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Chưa nhập nội dung", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
                 {
@@ -1086,32 +1075,31 @@ namespace FileExplorer
                                     count = 5;
                                     break;
                                 case ".PPTX":
-                                case "PTX":
+                                case ".PTX":
                                     count = 6;
                                     break;
                                 case ".RAR":
+                                case ".ZIP":
                                     count = 7;
                                     break;
                                 case ".SQL":
                                     count = 8;
                                     break;
                                 case ".XLS":
+                                case ".XLXS":
                                     count = 9;
-                                    break;
-                                case ".ZIP":
-                                    count = 10;
                                     break;
                                 case ".MP3":
                                 case ".MP4":
                                 case ".WMV":
-                                    count = 12;
+                                    count = 11;
                                     break;
                                 case ".PNG":
-                                case "JPG":
+                                case ".JPG":
                                     count = 4;
                                     break;
                                 default:
-                                    count = 11;
+                                    count = 10;
                                     break;
                             }
                             lvi.ImageIndex = count;
@@ -1182,6 +1170,7 @@ namespace FileExplorer
                             count = 6;
                             break;
                         case ".RAR":
+                        case ".ZIP":
                             count = 7;
                             break;
                         case ".SQL":
@@ -1190,9 +1179,7 @@ namespace FileExplorer
                         case ".XLS":
                             count = 9;
                             break;
-                        case ".ZIP":
-                            count = 10;
-                            break;
+                       
                         case ".MP3":
                         case ".MP4":
                         case ".WMV":
@@ -1290,6 +1277,7 @@ namespace FileExplorer
                             count = 6;
                             break;
                         case ".RAR":
+                        case ".ZIP":
                             count = 7;
                             break;
                         case ".SQL":
@@ -1297,9 +1285,6 @@ namespace FileExplorer
                             break;
                         case ".XLS":
                             count = 9;
-                            break;
-                        case ".ZIP":
-                            count = 10;
                             break;
                         case ".MP3":
                         case ".MP4":
@@ -1359,8 +1344,6 @@ namespace FileExplorer
             listDir.Items.Clear();
             foreach (FileInfo file in curDir.GetFiles())
             {
-
-
                 int count;
                 switch (file.Extension.ToUpper())
                 {
@@ -1380,6 +1363,7 @@ namespace FileExplorer
                         count = 6;
                         break;
                     case ".RAR":
+                    case ".ZIP":
                         count = 7;
                         break;
                     case ".SQL":
@@ -1388,9 +1372,7 @@ namespace FileExplorer
                     case ".XLS":
                         count = 9;
                         break;
-                    case ".ZIP":
-                        count = 10;
-                        break;
+
                     case ".MP3":
                     case ".MP4":
                     case ".WMV":
@@ -1543,6 +1525,50 @@ namespace FileExplorer
         private void propertiesTS_Click(object sender, EventArgs e)
         {
             Properties();
+        }
+
+
+        private void newFileMS(string name, string type)
+        {
+            if (curDir == null)
+            {
+                MessageBox.Show("Chưa chọn nơi tạo File");
+            }
+            else
+            {
+                string currentPath = curDir.FullName;
+                string fileName = name;
+                string path = Path.Combine(currentPath, fileName);
+                string newFilePath = path;
+                int num = 2;
+                while (File.Exists(newFilePath))
+                {
+                    newFilePath = path.Remove(path.Length - 4) + "(" + num + ")" + type;
+                    num++;
+                }
+                File.Create(newFilePath).Close();
+                reFresh();
+            }
+        }
+
+        private void wordToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            newFileMS("New Word Document.doc",".doc");
+        }
+
+        private void powerpointToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            newFileMS("New Word Document.pptx", ".pptx");
+        }
+
+        private void excelToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            newFileMS("New Word Document.xlxs", ".xlxs");
+        }
+
+        private void accessToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            newFileMS("New Microsoft Access Database.accdb", ".accdb");
         }
     }
 }

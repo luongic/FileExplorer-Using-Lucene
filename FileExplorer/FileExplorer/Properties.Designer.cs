@@ -29,6 +29,7 @@ namespace FileExplorer
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PropertiesForm));
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.nameBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -53,95 +54,100 @@ namespace FileExplorer
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(33, 28);
+            this.pictureBox1.Location = new System.Drawing.Point(29, 21);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(90, 87);
+            this.pictureBox1.Size = new System.Drawing.Size(79, 65);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
             // nameBox
             // 
-            this.nameBox.Location = new System.Drawing.Point(168, 56);
+            this.nameBox.Location = new System.Drawing.Point(147, 42);
+            this.nameBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.nameBox.Name = "nameBox";
-            this.nameBox.Size = new System.Drawing.Size(263, 27);
+            this.nameBox.Size = new System.Drawing.Size(231, 23);
             this.nameBox.TabIndex = 1;
             // 
             // label1
             // 
             this.label1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label1.Location = new System.Drawing.Point(-7, 147);
+            this.label1.Location = new System.Drawing.Point(-6, 110);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(463, 16);
+            this.label1.Size = new System.Drawing.Size(405, 12);
             this.label1.TabIndex = 2;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(33, 163);
+            this.label2.Location = new System.Drawing.Point(29, 122);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(47, 20);
+            this.label2.Size = new System.Drawing.Size(37, 15);
             this.label2.TabIndex = 3;
             this.label2.Text = "Type :";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(33, 205);
+            this.label3.Location = new System.Drawing.Point(29, 154);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(73, 20);
+            this.label3.Size = new System.Drawing.Size(59, 15);
             this.label3.TabIndex = 4;
             this.label3.Text = "Location :";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(33, 247);
+            this.label4.Location = new System.Drawing.Point(29, 185);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(43, 20);
+            this.label4.Size = new System.Drawing.Size(33, 15);
             this.label4.TabIndex = 5;
             this.label4.Text = "Size :";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(33, 289);
+            this.label5.Location = new System.Drawing.Point(29, 217);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(99, 20);
+            this.label5.Size = new System.Drawing.Size(78, 15);
             this.label5.TabIndex = 6;
             this.label5.Text = "Date Modify :";
             // 
             // label6
             // 
             this.label6.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label6.Location = new System.Drawing.Point(-7, 364);
+            this.label6.Location = new System.Drawing.Point(-6, 273);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(463, 11);
+            this.label6.Size = new System.Drawing.Size(405, 8);
             this.label6.TabIndex = 7;
             this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(229, 506);
+            this.button1.Location = new System.Drawing.Point(200, 380);
+            this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(94, 36);
+            this.button1.Size = new System.Drawing.Size(82, 27);
             this.button1.TabIndex = 8;
             this.button1.Text = "OK";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button2_Click);
             // 
             // containLB
             // 
             this.containLB.AutoSize = true;
-            this.containLB.Location = new System.Drawing.Point(33, 331);
+            this.containLB.Location = new System.Drawing.Point(29, 248);
             this.containLB.Name = "containLB";
-            this.containLB.Size = new System.Drawing.Size(73, 20);
+            this.containLB.Size = new System.Drawing.Size(60, 15);
             this.containLB.TabIndex = 9;
             this.containLB.Text = "Contains :";
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(337, 506);
+            this.button2.Location = new System.Drawing.Point(295, 380);
+            this.button2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(94, 36);
+            this.button2.Size = new System.Drawing.Size(82, 27);
             this.button2.TabIndex = 10;
             this.button2.Text = "Close";
             this.button2.UseVisualStyleBackColor = true;
@@ -150,82 +156,86 @@ namespace FileExplorer
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(33, 394);
+            this.label8.Location = new System.Drawing.Point(29, 296);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(81, 20);
+            this.label8.Size = new System.Drawing.Size(65, 15);
             this.label8.TabIndex = 11;
             this.label8.Text = "Attributes :";
             // 
             // readCheckBox
             // 
             this.readCheckBox.AutoSize = true;
-            this.readCheckBox.Location = new System.Drawing.Point(168, 393);
+            this.readCheckBox.Location = new System.Drawing.Point(147, 295);
+            this.readCheckBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.readCheckBox.Name = "readCheckBox";
-            this.readCheckBox.Size = new System.Drawing.Size(99, 24);
+            this.readCheckBox.Size = new System.Drawing.Size(80, 19);
             this.readCheckBox.TabIndex = 12;
             this.readCheckBox.Text = "Read Only";
             this.readCheckBox.UseVisualStyleBackColor = true;
+            this.readCheckBox.CheckedChanged += new System.EventHandler(this.readCheckBox_CheckedChanged);
             // 
             // hiddenCheckBox
             // 
             this.hiddenCheckBox.AutoSize = true;
-            this.hiddenCheckBox.Location = new System.Drawing.Point(168, 434);
+            this.hiddenCheckBox.Location = new System.Drawing.Point(147, 326);
+            this.hiddenCheckBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.hiddenCheckBox.Name = "hiddenCheckBox";
-            this.hiddenCheckBox.Size = new System.Drawing.Size(80, 24);
+            this.hiddenCheckBox.Size = new System.Drawing.Size(65, 19);
             this.hiddenCheckBox.TabIndex = 13;
             this.hiddenCheckBox.Text = "Hidden";
             this.hiddenCheckBox.UseVisualStyleBackColor = true;
+            this.hiddenCheckBox.CheckedChanged += new System.EventHandler(this.hiddenCheckBox_CheckedChanged);
             // 
             // type
             // 
             this.type.AutoSize = true;
-            this.type.Location = new System.Drawing.Point(168, 167);
+            this.type.Location = new System.Drawing.Point(147, 125);
             this.type.Name = "type";
-            this.type.Size = new System.Drawing.Size(50, 20);
+            this.type.Size = new System.Drawing.Size(38, 15);
             this.type.TabIndex = 14;
             this.type.Text = "label9";
             // 
             // location
             // 
             this.location.AutoSize = true;
-            this.location.Location = new System.Drawing.Point(168, 205);
+            this.location.Location = new System.Drawing.Point(147, 154);
             this.location.Name = "location";
-            this.location.Size = new System.Drawing.Size(58, 20);
+            this.location.Size = new System.Drawing.Size(44, 15);
             this.location.TabIndex = 15;
             this.location.Text = "label10";
             // 
             // size
             // 
             this.size.AutoSize = true;
-            this.size.Location = new System.Drawing.Point(168, 247);
+            this.size.Location = new System.Drawing.Point(147, 185);
             this.size.Name = "size";
-            this.size.Size = new System.Drawing.Size(58, 20);
+            this.size.Size = new System.Drawing.Size(44, 15);
             this.size.TabIndex = 16;
             this.size.Text = "label11";
             // 
             // date
             // 
             this.date.AutoSize = true;
-            this.date.Location = new System.Drawing.Point(168, 289);
+            this.date.Location = new System.Drawing.Point(147, 217);
             this.date.Name = "date";
-            this.date.Size = new System.Drawing.Size(58, 20);
+            this.date.Size = new System.Drawing.Size(44, 15);
             this.date.TabIndex = 17;
             this.date.Text = "label12";
             // 
             // containtxt
             // 
             this.containtxt.AutoSize = true;
-            this.containtxt.Location = new System.Drawing.Point(168, 331);
+            this.containtxt.Location = new System.Drawing.Point(147, 248);
             this.containtxt.Name = "containtxt";
-            this.containtxt.Size = new System.Drawing.Size(58, 20);
+            this.containtxt.Size = new System.Drawing.Size(44, 15);
             this.containtxt.TabIndex = 18;
             this.containtxt.Text = "label13";
             // 
             // PropertiesForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(443, 554);
+            this.ClientSize = new System.Drawing.Size(388, 416);
             this.Controls.Add(this.containtxt);
             this.Controls.Add(this.date);
             this.Controls.Add(this.size);
@@ -245,6 +255,8 @@ namespace FileExplorer
             this.Controls.Add(this.label1);
             this.Controls.Add(this.nameBox);
             this.Controls.Add(this.pictureBox1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "PropertiesForm";
             this.Text = "Properties";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

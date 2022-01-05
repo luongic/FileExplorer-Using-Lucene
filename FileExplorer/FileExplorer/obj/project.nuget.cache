@@ -1,18 +1,18 @@
 {
   "version": 2,
-  "dgSpecHash": "9u7Kg4mhMJwsy8TIWIrdmFBk5EfkrYHgUDfpSFyoeOzMFqJdyD0OVQo8OLlx105io21n7Vp7CbXY8Eg9wL0bmw==",
+  "dgSpecHash": "ygAkY8U2Hd0CJjqHluHwgUfkQf/8z7V747QIuqN2/OPMOkCr33SpuS30Gb1ir7uryq5+jPoOVsK/WHR7z9VIdw==",
   "success": true,
-  "projectFilePath": "D:\\cnpm_cuoiki\\FileExplorer\\FileExplorer\\FileExplorer.csproj",
+  "projectFilePath": "D:\\Final_Project\\cnpm_cuoiki\\FileExplorer\\FileExplorer\\FileExplorer.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\ADMIN\\.nuget\\packages\\bouncycastle\\1.8.6.1\\bouncycastle.1.8.6.1.nupkg.sha512",
-    "C:\\Users\\ADMIN\\.nuget\\packages\\gembox.document\\33.0.1372\\gembox.document.33.0.1372.nupkg.sha512",
-    "C:\\Users\\ADMIN\\.nuget\\packages\\itextsharp\\5.5.13.2\\itextsharp.5.5.13.2.nupkg.sha512",
-    "C:\\Users\\ADMIN\\.nuget\\packages\\lucene.net\\3.0.3\\lucene.net.3.0.3.nupkg.sha512",
-    "C:\\Users\\ADMIN\\.nuget\\packages\\microsoft.netcore.platforms\\5.0.0\\microsoft.netcore.platforms.5.0.0.nupkg.sha512",
-    "C:\\Users\\ADMIN\\.nuget\\packages\\microsoft.win32.systemevents\\5.0.0\\microsoft.win32.systemevents.5.0.0.nupkg.sha512",
-    "C:\\Users\\ADMIN\\.nuget\\packages\\portable.bouncycastle\\1.8.9\\portable.bouncycastle.1.8.9.nupkg.sha512",
-    "C:\\Users\\ADMIN\\.nuget\\packages\\sharpziplib\\0.86.0\\sharpziplib.0.86.0.nupkg.sha512",
-    "C:\\Users\\ADMIN\\.nuget\\packages\\system.drawing.common\\5.0.0\\system.drawing.common.5.0.0.nupkg.sha512"
+    "C:\\Users\\PC\\.nuget\\packages\\bouncycastle\\1.8.6.1\\bouncycastle.1.8.6.1.nupkg.sha512",
+    "C:\\Users\\PC\\.nuget\\packages\\gembox.document\\33.0.1372\\gembox.document.33.0.1372.nupkg.sha512",
+    "C:\\Users\\PC\\.nuget\\packages\\itextsharp\\5.5.13.2\\itextsharp.5.5.13.2.nupkg.sha512",
+    "C:\\Users\\PC\\.nuget\\packages\\lucene.net\\3.0.3\\lucene.net.3.0.3.nupkg.sha512",
+    "C:\\Users\\PC\\.nuget\\packages\\microsoft.netcore.platforms\\5.0.0\\microsoft.netcore.platforms.5.0.0.nupkg.sha512",
+    "C:\\Users\\PC\\.nuget\\packages\\microsoft.win32.systemevents\\5.0.0\\microsoft.win32.systemevents.5.0.0.nupkg.sha512",
+    "C:\\Users\\PC\\.nuget\\packages\\portable.bouncycastle\\1.8.9\\portable.bouncycastle.1.8.9.nupkg.sha512",
+    "C:\\Users\\PC\\.nuget\\packages\\sharpziplib\\0.86.0\\sharpziplib.0.86.0.nupkg.sha512",
+    "C:\\Users\\PC\\.nuget\\packages\\system.drawing.common\\5.0.0\\system.drawing.common.5.0.0.nupkg.sha512"
   ],
   "logs": [
     {

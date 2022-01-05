@@ -64,3 +64,10 @@ D:\cnpm_cuoiki\FileExplorer\FileExplorer\bin\Debug\net5.0-windows\BouncyCastle.C
 D:\cnpm_cuoiki\FileExplorer\FileExplorer\bin\Debug\net5.0-windows\ICSharpCode.SharpZipLib.dll
 D:\cnpm_cuoiki\FileExplorer\FileExplorer\bin\Debug\net5.0-windows\runtimes\unix\lib\netcoreapp3.1\GemBox.Document.dll
 D:\cnpm_cuoiki\FileExplorer\FileExplorer\obj\Debug\net5.0-windows\FileExplorer.csproj.CopyComplete
+D:\Final_Project\cnpm_cuoiki\FileExplorer\FileExplorer\bin\Debug\net5.0-windows\GemBox.Document.dll
+D:\Final_Project\cnpm_cuoiki\FileExplorer\FileExplorer\bin\Debug\net5.0-windows\itextsharp.dll
+D:\Final_Project\cnpm_cuoiki\FileExplorer\FileExplorer\bin\Debug\net5.0-windows\Lucene.Net.dll
+D:\Final_Project\cnpm_cuoiki\FileExplorer\FileExplorer\bin\Debug\net5.0-windows\BouncyCastle.Crypto.dll
+D:\Final_Project\cnpm_cuoiki\FileExplorer\FileExplorer\bin\Debug\net5.0-windows\ICSharpCode.SharpZipLib.dll
+D:\Final_Project\cnpm_cuoiki\FileExplorer\FileExplorer\bin\Debug\net5.0-windows\runtimes\unix\lib\netcoreapp3.1\GemBox.Document.dll
+D:\Final_Project\cnpm_cuoiki\FileExplorer\FileExplorer\obj\Debug\net5.0-windows\FileExplorer.csproj.CopyComplete
