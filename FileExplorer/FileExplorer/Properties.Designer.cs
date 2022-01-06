@@ -49,6 +49,7 @@ namespace FileExplorer
             this.size = new System.Windows.Forms.Label();
             this.date = new System.Windows.Forms.Label();
             this.containtxt = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -231,11 +232,21 @@ namespace FileExplorer
             this.containtxt.TabIndex = 18;
             this.containtxt.Text = "label13";
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(147, 21);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(42, 15);
+            this.label7.TabIndex = 19;
+            this.label7.Text = "Name:";
+            // 
             // PropertiesForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(388, 416);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.containtxt);
             this.Controls.Add(this.date);
             this.Controls.Add(this.size);
@@ -286,5 +297,6 @@ namespace FileExplorer
         private System.Windows.Forms.Label size;
         private System.Windows.Forms.Label date;
         private System.Windows.Forms.Label containtxt;
+        private System.Windows.Forms.Label label7;
     }
 }
