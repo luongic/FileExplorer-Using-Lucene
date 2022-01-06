@@ -52,7 +52,7 @@ namespace FileExplorer
         private void Form1_Load(object sender, EventArgs e)
         {
             InitTreeView();
-            tabControl1.SelectedTab = tabControl1.TabPages["Computer"];
+            tabControl1.SelectedTab = tabControl1.TabPages["File"];
             dateTimePicker1.Visible = false;
             chooseDateTXT.Visible = false;
             searchContentBox.Enabled = false;
@@ -294,9 +294,8 @@ namespace FileExplorer
             return curNode.Nodes[foundIndex];
         }
 
-        private void listDir_ItemActivate(object sender, EventArgs e)
+        private void OpenFile()
         {
-            // Căt ra thành hàm openFile chung với 876
             if (listDir.SelectedItems[0].Tag.GetType() == typeof(DirectoryInfo))
             {
                 curDir = (DirectoryInfo)listDir.SelectedItems[0].Tag;
@@ -318,6 +317,11 @@ namespace FileExplorer
                     }
                 }.Start();
             }
+        }
+
+        private void listDir_ItemActivate(object sender, EventArgs e)
+        {
+            OpenFile();
         }
 
         private void left_Click(object sender, EventArgs e)
@@ -603,7 +607,7 @@ namespace FileExplorer
                 else //Nếu thay đổi tên file
                 {
                     // Bắt trùng tên file
-                    if (File.Exists(Path.Combine(curDir.FullName, nameEdit)))
+                    if (System.IO.File.Exists(Path.Combine(curDir.FullName, nameEdit)))
                     {
                         MessageBox.Show("Trùng tên", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         e.CancelEdit = true;
@@ -611,7 +615,7 @@ namespace FileExplorer
                     else
                     {
                         FileInfo dirEdit = (FileInfo)lv.Tag;
-                        File.Move(dirEdit.FullName, Path.Combine(curDir.FullName, nameEdit));
+                        System.IO.File.Move(dirEdit.FullName, Path.Combine(curDir.FullName, nameEdit));
                         FileInfo dirtmp = new FileInfo(Path.Combine(curDir.FullName, nameEdit));
                         lv.Tag = dirtmp;
                     }
@@ -867,7 +871,7 @@ namespace FileExplorer
                             else
                             {
                                 FileInfo file = (FileInfo)item.Tag;
-                                File.Delete(file.FullName);
+                                System.IO.File.Delete(file.FullName);
                             }
                             // Xóa Item ra khỏi listview
                             listDir.Items.Remove(item);
@@ -896,53 +900,8 @@ namespace FileExplorer
 
         private void openTS_Click(object sender, EventArgs e)
         {
-            if (listDir.SelectedItems[0].Tag.GetType() == typeof(DirectoryInfo))
-            {
-                curDir = (DirectoryInfo)listDir.SelectedItems[0].Tag;
-                LoadDirectory();
-                curNode = findCurrentNode(curDir.Name);
-                treeNode.SelectedNode = curNode;
-                pathDir.Text = curDir.FullName;
-            }
-            else
-            {
-                FileInfo file = (FileInfo)listDir.SelectedItems[0].Tag;
-                pathDir.Text = file.FullName;
-
-                new Process
-                {
-                    StartInfo = new ProcessStartInfo(file.FullName)
-                    {
-                        UseShellExecute = true
-                    }
-                }.Start();
-            }
+            OpenFile();
         }
-
-        private void newFile()
-        {
-            if (curDir == null)
-            {
-                MessageBox.Show("Chưa chọn nơi tạo File");
-            }
-            else
-            {
-                string currentPath = curDir.FullName;
-                string fileName = "New Text Document.txt";
-                string path = Path.Combine(currentPath, fileName);
-                string newFilePath = path;
-                int num = 2;
-                while (File.Exists(newFilePath))
-                {
-                    newFilePath = path.Remove(path.Length - 4) + "(" + num + ")" + ".txt";
-                    num++;
-                }
-                File.Create(newFilePath).Close();
-                // làm mới và update lại danh sách file
-                reFresh();
-            }
-        }
-
 
 
         //PlaceHoder for searchContentBox-------------------------------
@@ -976,15 +935,15 @@ namespace FileExplorer
 
         private void textFileTS_Click(object sender, EventArgs e)
         {
-            newFile();
+            newFileMS("New Text Document.txt","txt");
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            string typeSearch = searchTypeBox.SelectedItem.ToString();
+            string typeSearch = searchTypeBox.Text;
             if (typeSearch == "")
             {
-                MessageBox.Show("Chưa nhập kiểu tìm kiếm", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Chưa chọn kiểu tìm kiếm", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else if(typeSearch == "Type")
             {
@@ -1031,9 +990,13 @@ namespace FileExplorer
 
         public void findByType()
         {
-            if (searchContentBox.Text == "All")
+            //if (searchContentBox.Text == "All")
+            //{
+            //    LoadDirectory();
+            //}
+            if (curDir == null)
             {
-                LoadDirectory();
+                return;
             }
             else
             {
@@ -1050,6 +1013,10 @@ namespace FileExplorer
                         lvi.SubItems.Add("Folder");
                         lvi.SubItems.Add(subDir.LastWriteTime.ToString());
                     }
+                }
+                else if (findType.Equals("All"))
+                {
+                    reFresh();
                 }
                 else
                 {
@@ -1120,6 +1087,10 @@ namespace FileExplorer
             listDir.Items.Clear();
             // Lấy date input
             string findDay = dateTimePicker1.Text;
+            if(curDir == null)
+            {
+                return;
+            }
             // Lọc danh sách folder hiện tại
             foreach (DirectoryInfo subDir in curDir.GetDirectories())
             {
@@ -1214,7 +1185,7 @@ namespace FileExplorer
             var writer = new IndexWriter(directory, analyzer, true, IndexWriter.MaxFieldLength.LIMITED);
             writer.AddDocument(F);
             writer.Optimize();
-            writer.Close();
+            writer.Dispose();
 
             IndexReader reader = IndexReader.Open(directory, true);
             Searcher search = new IndexSearcher(reader);
@@ -1235,6 +1206,10 @@ namespace FileExplorer
         public void findByName()
         {
             listDir.Items.Clear();
+            if (curDir == null)
+            {
+                return;
+            }
             foreach (DirectoryInfo subDir in curDir.GetDirectories())
             {
                 loadName(subDir.Name);
@@ -1319,7 +1294,7 @@ namespace FileExplorer
             var writer = new IndexWriter(directory, analyzer, true, IndexWriter.MaxFieldLength.LIMITED);
             writer.AddDocument(F);
             writer.Optimize();
-            writer.Close();
+            writer.Dispose();
 
             IndexReader reader = IndexReader.Open(directory, true);
             Searcher search = new IndexSearcher(reader);
@@ -1342,6 +1317,10 @@ namespace FileExplorer
         public void findByContent()
         {
             listDir.Items.Clear();
+            if (curDir == null)
+            {
+                return;
+            }
             foreach (FileInfo file in curDir.GetFiles())
             {
                 int count;
@@ -1425,7 +1404,7 @@ namespace FileExplorer
                 //đọc file Text
                 if (file.Extension.ToUpper() == ".TXT")
                 {
-                    string testData = File.ReadAllText(@file.FullName);
+                    string testData = System.IO.File.ReadAllText(file.FullName);
                     loadByContent(testData.ToString().ToLower(), file.Name);
                 }
 
@@ -1530,9 +1509,10 @@ namespace FileExplorer
 
         private void newFileMS(string name, string type)
         {
+            int fileTypeLengh = type.Length + 1;
             if (curDir == null)
             {
-                MessageBox.Show("Chưa chọn nơi tạo File");
+                MessageBox.Show("Không thể tạo File ở đây");
             }
             else
             {
@@ -1541,34 +1521,49 @@ namespace FileExplorer
                 string path = Path.Combine(currentPath, fileName);
                 string newFilePath = path;
                 int num = 2;
-                while (File.Exists(newFilePath))
+                while (System.IO.File.Exists(newFilePath))
                 {
-                    newFilePath = path.Remove(path.Length - 4) + "(" + num + ")" + type;
+                    newFilePath = path.Remove(path.Length - fileTypeLengh) + "(" + num + ")" + "." + type;
                     num++;
                 }
-                File.Create(newFilePath).Close();
+                System.IO.File.Create(newFilePath).Close();
                 reFresh();
             }
         }
 
         private void wordToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            newFileMS("New Word Document.doc",".doc");
+            newFileMS("New Word Document.doc","doc");
         }
 
         private void powerpointToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            newFileMS("New Word Document.pptx", ".pptx");
+            newFileMS("New Word Document.pptx", "pptx");
         }
 
         private void excelToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            newFileMS("New Word Document.xlxs", ".xlxs");
+            newFileMS("New Word Document.xlxs", "xlxs");
         }
 
         private void accessToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            newFileMS("New Microsoft Access Database.accdb", ".accdb");
+            newFileMS("New Microsoft Access Database.accdb", "accdb");
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void chooseDateTXT_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pathDir_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

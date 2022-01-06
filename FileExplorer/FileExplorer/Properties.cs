@@ -184,5 +184,15 @@ namespace FileExplorer
                 }
             }
         }
+
+        private void PropertiesForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void nameBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
